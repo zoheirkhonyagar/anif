@@ -13,6 +13,13 @@ class CreateStoresTable extends Migration
      */
     public function up()
     {
+        Schema::create('store_categories', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 100);
+            $table->timestamps();
+        });
+
+
         Schema::create('stores', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100);
@@ -24,18 +31,23 @@ class CreateStoresTable extends Migration
             $table->integer('member_count')->default(0);
             $table->string('explain')->nullable();
             $table->text('images')->nullable();
-            $table->text('working_hours');
-            $table->text('features')->nullable();
+            $table->string('working_hours', 30);
             $table->unsignedInteger('s_category_id');
-            $table->text('menu_link')->nullable();
-            $table->timestamp('delivery_time');
+            $table->foreign('s_category_id')->references('id')->on('store_categories');
+            $table->string('menu_link')->nullable();
+            $table->unsignedInteger('delivery_time');
             $table->unsignedInteger('delivery_cost')->default(0);
             $table->boolean('is_online_order')->default(true);
             $table->boolean('is_table_reservation')->default(false);
             $table->decimal('latitude',10 , 8);
             $table->decimal('longitude',10 , 8);
+            $table->unsignedTinyInteger('sort_weight')->default(0);
             $table->timestamps();
         });
+
+//        Schema::table('stores', function($table) {
+
+//        });
     }
 
     /**
@@ -46,5 +58,6 @@ class CreateStoresTable extends Migration
     public function down()
     {
         Schema::dropIfExists('stores');
+        Schema::dropIfExists('store_categories');
     }
 }

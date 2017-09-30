@@ -16,14 +16,15 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('store_id');
+            $table->foreign('store_id')->references('id')->on('stores');
             $table->string('name',100);
             $table->unsignedInteger('price');
-            $table->unsignedInteger('off')->default(0);
+            $table->unsignedTinyInteger('off')->default(0);
             $table->unsignedInteger('TM')->default(0);
             $table->text('details')->nullable();
             $table->unsignedInteger('category_id');
-            $table->unsignedTinyInteger('product_types');
-            $table->unsignedInteger('earn_per_sale')->default(0);
+            $table->foreign('category_id')->references('id')->on('product_categories');
+            $table->unsignedDecimal('earn_per_sale')->default(0);
             $table->unsignedInteger('count')->default(0);
             $table->boolean('active')->default(true);
             $table->unsignedInteger('sell_count')->default(0);
