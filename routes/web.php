@@ -13,6 +13,10 @@
 
 use Illuminate\Support\Facades\DB;
 
+Route::get('/' , function (){
+    return view('main.main-page.index');
+});
+
 Route::get('stores', 'StoreController@index');
 Route::get('/insert', function () {
 

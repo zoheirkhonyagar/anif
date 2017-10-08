@@ -2,8 +2,18 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
-// Variables
-@import "variables";
+//// Variables
+//@import "variables";
+//
+//// Bootstrap
+//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
-// Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+//myStyles
+@import "files/fontiran.css";
+@import "files/font-awesome.min.css";
+@import "files/sweetalert.css";
+@import "files/style.css";
+
+body {
+  font-family: IRANSans !important;
+}
