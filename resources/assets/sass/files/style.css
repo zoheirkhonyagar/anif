@@ -335,13 +335,13 @@ header .header-bg .header-content .search-box .choose-boxes .choose-item i.anif-
 #content .row .row-content{
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 #content .row .row-content h2.title{
     margin: 3rem 0 1.5rem 0;
     font-weight: normal;
     font-size: 2rem;
+    text-align: center;
 }
 
 #content .row .row-content .items{
@@ -531,105 +531,15 @@ footer .container .copy-right p{
 
 
 /* ------------ responsive styles ------------ */
-
-@media (max-width: 480px){
-
-    header .header-bg .header-content .search-box-container{
-        width:100%;
-    }
-
-    header .header-bg .header-content .search-box{
-        padding:1rem;
-        width: 100%;
-    }
-
-    header .header-bg .header-content .search-box .choose-boxes{
-        width: 100%;
-    }
-
-    header .header-bg .header-content .search-box .choose-boxes .choose{
-        align-items:center;
-        justify-content: center;
-    }
-
-    header .header-bg .header-content .search-box .choose-boxes .choose .choose-item{
-        flex-basis:100%;
-    }
-
-    header .header-bg .header-content .search-box-container .search-box .search-form {
-        padding: 20px 0;
-        width: 100%;
-    }
-
-    header .header-bg .header-content .search-box-container .search-box .search-form form {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0;
-        flex-direction: column;
-    }
-
-    header .header-bg .header-content .search-box-container .search-box .search-form form .search-input {
-        padding: 1.55rem 1rem;
-        border-radius: 0.5rem;
-        font-size: 1.2rem;
-    }
-
-    header .header-bg .header-content .search-box-container .search-box .search-form form .search-btn {
-        padding: 0;
-        border-radius: 0.5rem;
-        border: none;
-        background: #fabc05;
-        margin: 1rem auto 0 auto;
-        width: 100%;
-    }
-
-
-    footer .container .footer-widget .social ul li,footer .container .footer-widget .menu ul li{
-        padding:0.5rem 0.8rem !important;
-    }
-}
-
-@media (max-width: 580px){
-
-    header .header-bg .header-content .search-box .choose-boxes .choose .choose-item{
-        flex-basis:100%;
-    }
-
+@media (max-width: 980px){
     #content .row .best-restaurant .offer-items .item , #content .row .row-content .items .item{
-        width: calc(100% - 40px);
+        width: calc(50% - 40px);
     }
-    #content .row .row-content .items .item .caption-box .logo{
-        display: flex;
-    }
-    #content .row .row-content .items .item .image-box span.offer-percent,#content .row .best-restaurant .items .item .image-box span.offer-percent{
+    #content .row .best-restaurant .items .item .image-box span.offer-percent{
         top: 0.5rem;
         left: 0.5rem;
         padding: 2rem 1rem;
-        border-radius: 0.25rem 2rem;;
         font-size: 1.4rem;
-    }
-
-    header .header-bg .header-content h2.steps {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        color: #fff;
-        margin: 4rem 0;
-    }
-
-    header .header-bg .header-content h2.steps i {
-        color: #fabc05;
-        padding: 3rem 0;
-    }
-
-    header .header-bg .header-content h2.steps i:before{
-        content: "\f13a";
-    }
-
-    header .header-bg .header-content h2.steps span {
-        font-size: 2rem;
     }
 }
 
@@ -691,14 +601,108 @@ footer .container .copy-right p{
 
 }
 
-@media (max-width: 980px){
-    #content .row .best-restaurant .offer-items .item , #content .row .row-content .items .item{
-        width: calc(50% - 40px);
+@media (max-width: 580px){
+
+    header .header-bg .header-content .search-box .choose-boxes .choose .choose-item{
+        flex-basis:100%;
     }
-    #content .row .best-restaurant .items .item .image-box span.offer-percent{
+
+    #content .row .best-restaurant .offer-items .item , #content .row .row-content .items .item{
+        width: calc(100% - 40px);
+    }
+    #content .row .row-content .items .item .caption-box .logo{
+        display: flex;
+    }
+    #content .row .row-content .items .item .image-box span.offer-percent,#content .row .best-restaurant .items .item .image-box span.offer-percent{
         top: 0.5rem;
         left: 0.5rem;
         padding: 2rem 1rem;
+        border-radius: 0.25rem 2rem;;
         font-size: 1.4rem;
     }
+
+    header .header-bg .header-content h2.steps {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        margin: 4rem 0;
+    }
+
+    header .header-bg .header-content h2.steps i {
+        color: #fabc05;
+        padding: 3rem 0;
+    }
+
+    header .header-bg .header-content h2.steps i:before{
+        content: "\f13a";
+    }
+
+    header .header-bg .header-content h2.steps span {
+        font-size: 2rem;
+    }
 }
+
+@media (max-width: 480px){
+
+    header .header-bg .header-content .search-box-container{
+        width:100%;
+    }
+
+    header .header-bg .header-content .search-box{
+        padding:1rem;
+        width: 100%;
+    }
+
+    header .header-bg .header-content .search-box .choose-boxes{
+        width: 100%;
+    }
+
+    header .header-bg .header-content .search-box .choose-boxes .choose{
+        align-items:center;
+        justify-content: center;
+    }
+
+    header .header-bg .header-content .search-box .choose-boxes .choose .choose-item{
+        flex-basis:100%;
+    }
+
+    header .header-bg .header-content .search-box-container .search-box .search-form {
+        padding: 20px 0;
+        width: 100%;
+    }
+
+    header .header-bg .header-content .search-box-container .search-box .search-form form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        flex-direction: column;
+    }
+
+    header .header-bg .header-content .search-box-container .search-box .search-form form .search-input {
+        padding: 1.55rem 1rem;
+        border-radius: 0.5rem;
+        font-size: 1.2rem;
+    }
+
+    header .header-bg .header-content .search-box-container .search-box .search-form form .search-btn {
+        padding: 0;
+        border-radius: 0.5rem;
+        border: none;
+        background: #fabc05;
+        margin: 1rem auto 0 auto;
+        width: 100%;
+    }
+
+
+    footer .container .footer-widget .social ul li,footer .container .footer-widget .menu ul li{
+        padding:0.5rem 0.8rem !important;
+    }
+}
+
+
+
+
+
