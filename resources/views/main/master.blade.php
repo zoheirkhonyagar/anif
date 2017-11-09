@@ -18,7 +18,6 @@
         @include('main.layout.content')
         @include('main.layout.footer')
     </div>
-
     @include('main.layout.footer-scripts')
 
 </body>
