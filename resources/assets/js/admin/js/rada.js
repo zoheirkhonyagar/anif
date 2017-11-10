@@ -72,9 +72,9 @@ $(document).ready(function () {
     });
 
     // Open close right sidebar
-    $('.left-sidebar-toggle').click(function () {
-        $('#left-sidebar').toggleClass('sidebar-open');
-    });
+    // $('.left-sidebar-toggle').click(function () {
+    //     $('#left-sidebar').toggleClass('sidebar-open');
+    // });
 
     // Initialize slimscroll for right sidebar
     $('.sidebar-container').slimScroll({
@@ -163,13 +163,13 @@ $(document).ready(function () {
     });
 
     // Move left sidebar top after scroll
-    $(window).scroll(function () {
-        if ($(window).scrollTop() > 0 && !$('body').hasClass('fixed-nav')) {
-            $('#left-sidebar').addClass('sidebar-top');
-        } else {
-            $('#left-sidebar').removeClass('sidebar-top');
-        }
-    });
+    // $(window).scroll(function () {
+    //     if ($(window).scrollTop() > 0 && !$('body').hasClass('fixed-nav')) {
+    //         $('#left-sidebar').addClass('sidebar-top');
+    //     } else {
+    //         $('#left-sidebar').removeClass('sidebar-top');
+    //     }
+    // });
 
     $(window).bind("load resize scroll", function () {
         if (!$("body").hasClass('body-small')) {

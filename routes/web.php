@@ -14,3 +14,7 @@
 use Illuminate\Support\Facades\DB;
 
 Route::get('/' , 'StoreController@index');
+
+Route::get('/admin' , function (){
+    return view('admin.dashboard.index');
+});
