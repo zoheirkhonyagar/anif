@@ -43,7 +43,6 @@ class StoreController extends Controller
                 $store['max_off'] = $tmp->maxOff;
                 $temp_store [] = $store;
             }
-
         }
 
         $temp_store = collect($temp_store);

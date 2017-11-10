@@ -1,5 +1,9 @@
 @extends('main.master')
 
+@section('title')
+    آنیف
+@endsection
+
 @section('custom-header')
 
     @include('main.main-page.components.search-box')
