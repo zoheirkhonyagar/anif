@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Api\v1;
-use App\Polls;
-use App\User;
+
 use Illuminate\Http\Request;
+use App\Store;
+
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rules\In;
+
 
 class StoreController extends apiController
 {
@@ -26,7 +26,7 @@ class StoreController extends apiController
         foreach ($data['stores'] as $item)
         {
             $item['icon'] = 'http://greenleafveg.com/wp-content/uploads/greenleaf-logo.png';
-            $item['image'] = 'https://www.foodnewsfeed.com/sites/foodnewsfeed.com/files/feature-images/fifty-future.jpg';
+            $item['image'] = $item['images'];
         }
         return $data;
     }
@@ -41,6 +41,33 @@ class StoreController extends apiController
 
         return $this->respondTrue($storesOffer);
     }
+
+
+    public function show(Request $request)
+    {
+        $store = Store::find($request->id);
+
+        if($store)
+            return $this->respondTrue($store);
+
+        return $this->respondInternalError();
+    }
+
+    public function showAllCategory(Request $request)
+    {
+        $category = Store::find($request->id)->productCategory()->with('product')->get();
+
+//        foreach ($category as $item)
+//        {
+//            $products = ProductCategory::with('');
+//        }
+        if($category)
+            return $this->respondTrue($category);
+
+        return $this->respondInternalError();
+    }
+
+
 
 //
 //    public function show($id)
@@ -91,6 +118,8 @@ class StoreController extends apiController
 //        return $this->RespondDeleted('poll successfully deleted');
 //    }
 
+
+
+
+
 }
-
-

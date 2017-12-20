@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Api\v1\apiController;
 use App\Store;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;

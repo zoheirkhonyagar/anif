@@ -99,6 +99,12 @@ class apiController extends Controller
         ]);
     }
 
+    public function respondValidationError($description = 'The server understood the request but refuses to authorize it.', $message = 'no message set')
+    {
+        $this->setStatusCode(403);
+        return $this->respondWithError($description, $message);
+    }
+
     protected function getPaginationInfo($data)
     {
         return [

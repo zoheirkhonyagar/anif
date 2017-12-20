@@ -13,7 +13,11 @@
 
 use Illuminate\Support\Facades\DB;
 
-Route::get('/' , 'StoreController@index');
+Route::get('/v2' , 'StoreController@index');
+
+Route::get('/' , function (){
+    return view('landing.index');
+});
 
 Route::get('stores', 'StoreController@index');
 Route::get('/insert', function () {
@@ -24,40 +28,68 @@ Route::get('/insert', function () {
 //    ]);
 //
 //    \App\Store::create([
-//        'name' => 'رستوران ولیعصر',
-//        'username' => 'valiasr',
+//        'name' => 'فست فود چیلی',
+//        'username' => 'chilly',
 //        'password' => bcrypt('4321'),
 //        'telephone_number' =>'0543342516',
 //        'address' =>'زاهدان ',
-//        'rank' =>4.1,
+//        'rank' =>4.9,
 //        'working_hours' => '11-16 , 19-23',
 //        's_category_id' =>1,
 //        'delivery_time' =>20,
 //        'latitude' =>29.4772336,
 //        'longitude' =>60.8489391,
 //    ]);
+//    \App\User::create([
+//        'phone_number' => '09217265472  ',
+//        'email' => 'edr9@gmail.com',
+//        'password' => bcrypt('1234'),
+//        'first_name' =>'احسان',
+//        'last_name' =>'رنجبری',
+//        'anif_code' =>9,
+//        'user_name' => 'eDr9',
+//    ]);
+
 //
 //        \App\ProductCategory::create([
-//        'id' => 2,
-//        'name' => 'پیش غذا',
-//        'store_id' => 2,
+//        'id' => 7,
+//        'name' => 'همبرگر',
+//        'store_id' => 6,
+//    ]);
+//
+//    \App\ProductCategory::create([
+//        'id' => 8,
+//        'name' => 'ساندویچ',
+//        'store_id' => 6,
+//    ]);
+
+//    \App\ProductCategory::create([
+//        'id' => 9,
+//        'name' => 'سالاد',
+//        'store_id' => 6,
+//    ]);
+//
+//    \App\ProductCategory::create([
+//        'id' => 10,
+//        'name' => 'تنوری',
+//        'store_id' => 6,
 //    ]);
 //
 //    \App\Product::create([
-//        'store_id' => 2,
-//        'name' => 'سالاد',
-//        'price' => 3000,
-//        'category_id' => 2,
-//        'off' => 21
+//        'store_id' => 6,
+//        'name' => 'هات برگر',
+//        'price' => 9000,
+//        'category_id' => 6,
+//        'off' => 10
 //
 //    ]);
-//
+////
 //    return \App\Product::create([
-//        'store_id' => 2,
-//        'name' => 'سالاد سزار',
-//        'price' => 5000,
-//        'category_id' => 2,
-//        'off' => 35
+//        'store_id' => 6,
+//        'name' => 'رویال برگر',
+//        'price' => 10000,
+//        'category_id' => 6,
+//        'off' => 45
 //
 //    ]);
 
@@ -65,3 +97,7 @@ Route::get('/insert', function () {
 
 //    return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
