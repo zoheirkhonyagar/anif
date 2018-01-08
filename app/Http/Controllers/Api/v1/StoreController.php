@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Resources\v1\Store as ResourceStore;
 use Illuminate\Http\Request;
 use App\Store;
 
@@ -23,12 +24,12 @@ class StoreController extends apiController
 
     protected function setIconAndImage($data)
     {
+        $tmpS = [];
         foreach ($data['stores'] as $item)
         {
-            $item['icon'] = 'http://greenleafveg.com/wp-content/uploads/greenleaf-logo.png';
-            $item['image'] = $item['images'];
+            $tmpS[] = new ResourceStore($item);
         }
-        return $data;
+        return $tmpS;
     }
 
 
@@ -48,7 +49,10 @@ class StoreController extends apiController
         $store = Store::find($request->id);
 
         if($store)
+        {
+            $store = new ResourceStore($store);
             return $this->respondTrue($store);
+        }
 
         return $this->respondInternalError();
     }

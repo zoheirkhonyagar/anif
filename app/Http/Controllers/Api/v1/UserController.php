@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Requests\ApiLogin;
+use App\Http\Requests\SendVerifyCode;
 use App\Http\Resources\v1\User as UserResource;
 use App\TmpRegister;
 use Illuminate\Http\Request;
@@ -15,18 +17,22 @@ class UserController extends apiController
 {
 
 
-    public function login(Request $request)
+    public function login(ApiLogin $request)
     {
         $validData = $this->validate($request, [
-                'email' => 'required|exists:users',
-//                'phone_number' => 'required|exists:users',
+                'email' => 'exists:users',
+                'phone_number' => 'exists:users',
                 'password' => 'required'
             ]
         );
 
+//        $validData = $request->validate();
+//        dd($validData);
+
         if(! auth()->attempt($validData))
         {
-            return $this->respondValidationError();
+            $message = 'رمز عبور یا شماره همراه اشتباه می باشد';
+            return $this->respondValidationError('The server understood the request but refuses to authorize it.', $message);
         }
 
         auth()->user()->update(
@@ -73,13 +79,14 @@ class UserController extends apiController
     }
 
 
-    public function sendVerifyCode(Request $request)
+    public function sendVerifyCode(SendVerifyCode $request)
     {
         $validData = $this->validate($request, [
 
             'phone_number' => 'required|string|size:11|unique:users',
         ]);
-        dd($validData);
+
+//        $validData = $request->validate();
 
         $verifyCode = rand(1000,9999);//کد رند در دیتابیس ذخیره شود
         $phoneNumber = $validData['phone_number'] ;
@@ -114,5 +121,7 @@ class UserController extends apiController
         }
 
     }
+
+
 
 }

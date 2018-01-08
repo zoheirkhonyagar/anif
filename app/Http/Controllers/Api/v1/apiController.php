@@ -105,6 +105,12 @@ class apiController extends Controller
         return $this->respondWithError($description, $message);
     }
 
+    public function respondBadRequest($description= 'Bad Request', $message = 'no message set')
+    {
+        $this->setStatusCode(400);
+        return $this->respondWithError($description, $message);
+    }
+
     protected function getPaginationInfo($data)
     {
         return [

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api\v1;
+use App\Http\Resources\v1\Product as ResourceProduct;
 use App\Polls;
 use App\Product;
 use App\ProductCategory;
@@ -53,8 +54,16 @@ class ProductCategoryController extends apiController
     {
         $product = ProductCategory::find($request->id)->product()->get();
 
-        if($product)
-            return $this->respondTrue($product);
+        if($product) {
+            $tmpP = [];
+            foreach ($product as $item)
+            {
+                $item = new ResourceProduct($item);
+                $tmpP[] = $item ;
+            }
+            return $this->respondTrue($tmpP);
+
+        }
 
         return $this->respondInternalError();
 

@@ -31,10 +31,15 @@ Route::group(['prefix'=> 'v1', 'namespace'=> 'Api\v1'], function () {
 
     Route::middleware('auth:api')->group(function ()
     {
+        Route::post('joinToCRM', 'CustomerController@storeCustomer');
+        Route::post('getCustomer', 'CustomerController@getCustomer');
+
         Route::post('user', function ()
         {
             return auth()->user();
         });
+
+
     });
 
 });

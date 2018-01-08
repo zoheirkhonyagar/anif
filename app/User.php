@@ -24,6 +24,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token','api_token'
     ];
+
+
+    public function Address()
+    {
+        return $this->hasMany(UserAddress::class);
+    }
+
+    public function Customer()
+    {
+        return $this->hasMany(Customer::class);
+    }
 }

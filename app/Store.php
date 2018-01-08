@@ -20,4 +20,9 @@ class Store extends Model
     {
         return $this->hasMany(ProductCategory::class);
     }
+
+    public function Customer()
+    {
+        return $this->hasMany(Customer::class);
+    }
 }
