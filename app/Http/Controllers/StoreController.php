@@ -10,21 +10,61 @@ use Illuminate\Support\Facades\Input;
 
 class StoreController extends Controller
 {
+    protected $sliderSizeImage = '640';
+    protected $mainImageSize = '200';
+
     public function index()
     {
         $sortedWithOff = $this->getOfferStores();
         $sortedWithOff = $sortedWithOff['stores'];
 
-        $storesWithRank = $this->getBestStores();
+        $storesWithRank = $this->getBestStores(3);
         $storesWithRank = $storesWithRank['stores'];
 
         return view('main.main-page.index' , compact( 'sortedWithOff' , 'storesWithRank'));
 
     }
 
+
+    public function show(Store $store)
+    {
+        $store = $this->parseStoreImage($store);
+        $categories = Store::find($store->id)->productCategory()->with('product')->get();
+
+        if($categories)
+        return view('main.main-page.single-stores.show', compact('store','categories'));
+//        return $store;
+    }
+
     /**
      * @return mixed
      */
+
+    public function parseStoreImage($store)
+    {
+//      $url = 'http://anif.ir/'.'images/stores/'.$store['id'].'/';
+        $getUrl = url('/');
+        $url = $getUrl.'/images/stores/'.$store['id'].'/';
+        $arrImg = unserialize($store['images']);
+        $tmpSlider = [];
+        foreach ($arrImg['images']['slides'] as $item)
+        {
+
+            $tmpSlider[] = $url.$item[$this->sliderSizeImage];
+        }
+
+        //قرار دادن لوگو تعطیل بودن مجموعه
+        $store['icon'] = $url.$arrImg['icon'];
+        if($store->is_online_order == 0)
+        {
+            $store['icon'] = $getUrl.'/images/stores/'.'icon-close.png';
+        }
+
+        $store['image'] = $url.$arrImg['images']['main'][$this->mainImageSize];
+
+        $store['images'] = $tmpSlider;
+        return $store;
+    }
     public function getOfferStores($perPage = 9, $currentPage = 1)
     {
 
@@ -40,6 +80,7 @@ class StoreController extends Controller
             $tmp = DB::table('products')->select(DB::raw('max(off) as maxOff'))->where('store_id', $store['id'])->first();
             if ($tmp->maxOff) {
                 $store['max_off'] = $tmp->maxOff;
+                $store = $this->parseStoreImage($store);
                 $temp_store [] = $store;
             }
 
@@ -69,8 +110,16 @@ class StoreController extends Controller
         });
         $storesWithRank = Store::orderBy('rank', 'desc')->paginate($perPage);
 
+        //اضافه کردن آدرس های تصویر هر مجموعه به بخش داده ایش
+        $temp_store = [];
+        foreach ($storesWithRank->items() as $store)
+        {
+            $store = $this->parseStoreImage($store);
+            $temp_store[] = $store;
+        }
+
         $storesWithRank = [
-            'stores' => $storesWithRank->items(),
+            'stores' => $temp_store,
             'paginate' => $this->getPaginationInfo($storesWithRank)
         ];
 

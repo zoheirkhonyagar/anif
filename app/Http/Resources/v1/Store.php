@@ -18,20 +18,20 @@ class Store extends Resource
             $this->explain = '';
         if($this->rank == null)
             $this->rank = -1;
-
-        $url = 'http://anif.ir/images/stores/'.$this['id'].'/';
+        $getUrl = url('/');
+        $url = $getUrl.'/images/stores/'.$this['id'].'/';
         $arrImg = unserialize($this['images']);
         $tmpSlider = [];
         foreach ($arrImg['images']['slides'] as $item)
         {
 
-            $tmpSlider[] = $item['450'];
+            $tmpSlider[] = $item['200'];
         }
 
         $arrImg['icon'] = $url. $arrImg['icon'];
         if($this->is_online_order == 0)
         {
-            $arrImg['icon'] = 'http://anif.ir/images/'.'icon-close.png';
+            $arrImg['icon'] = $getUrl.'/images/'.'icon-close.png';
         }
 
         return [

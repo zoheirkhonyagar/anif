@@ -164,6 +164,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Cviebrock\EloquentSluggable\ServiceProvider::class,
         /*
          * Package Service Providers...
          */
