@@ -14,7 +14,6 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-<<<<<<< HEAD
 Route::get('/reg' , function (){
     return view('main.auth.register');
 });
@@ -23,7 +22,7 @@ Route::get('/' , 'StoreController@index');
 Route::get('/admin' , function (){
     return view('admin.dashboard.index');
 });
-=======
+
 Route::get('/v2' , 'StoreController@index');
 Route::get('/' , function (){
     return view('landing.index');
@@ -49,7 +48,7 @@ Route::group(['namespace' => 'Auth'],function (){
 });
 
 Route::get('/{store}', 'StoreController@show')->name('store.show');
-Route::get('/insert', function () {
+// Route::get('/insert', function () {
 
 //    \App\StoreCategory::create([
 //        'id' => 1,
@@ -121,7 +120,7 @@ Route::get('/insert', function () {
 //        'off' => 45
 //
 //    ]);
->>>>>>> edr
+
 
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/' , function () {
@@ -146,10 +145,3 @@ Route::group(['namespace' => 'Auth'] , function (){
     $this->get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
     $this->post('password/reset', 'ResetPasswordController@reset');
 });
-
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

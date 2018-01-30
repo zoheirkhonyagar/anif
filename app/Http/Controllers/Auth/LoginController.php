@@ -26,8 +26,6 @@ class LoginController extends Controller
      *
      * @var string
      */
-<<<<<<< HEAD
-    protected $redirectTo = '/';
 
 
     public function username()
@@ -39,9 +37,9 @@ class LoginController extends Controller
     {
 
     }
-=======
+
     protected $redirectTo = '/v2';
->>>>>>> edr
+
 
     /**
      * Create a new controller instance.

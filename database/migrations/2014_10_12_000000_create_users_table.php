@@ -20,11 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('first_name', 100)->nullable();
             $table->string('last_name', 100)->nullable();
-<<<<<<< HEAD
             $table->unsignedInteger('anif_code')->unique();
-=======
             $table->unsignedInteger('anif_code')->unique()->nullable();
->>>>>>> edr
             $table->string('user_name', 50)->unique()->nullable();
             $table->timestamp('birthday')->nullable();
             $table->unsignedTinyInteger('status')->default(0);
@@ -56,10 +53,7 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
-<<<<<<< HEAD
         Schema::dropIfExists('tmp_register');
-=======
         Schema::dropIfExists('tmp_registers');
->>>>>>> edr
     }
 }
