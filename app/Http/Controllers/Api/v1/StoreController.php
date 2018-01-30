@@ -17,7 +17,7 @@ class StoreController extends apiController
         $perPage = Input::get('per_page') ?: 9 ;
         $page = Input::get('page') ?: 1;
         $storeC = new \App\Http\Controllers\StoreController();
-        $storesOffer = $storeC->getOfferStores($perPage, $page);
+        $storesOffer = $storeC->getOfferStores($perPage, $page, false);
 
         return $this->respondTrue($this->setIconAndImage($storesOffer));
     }

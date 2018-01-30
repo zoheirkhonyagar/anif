@@ -58,7 +58,7 @@ class Store extends Resource
             'telegram_link' => 'https://t.me/zahedanAnifBot',
             'max_off' => $this->max_off ,
             'icon' =>  $arrImg['icon'] ,
-            'image' => $url. $arrImg['thumb'] ,
+            'image' => $url. $arrImg['images']['slides'][0]['200'] ,
             'created_at' => $this->created_at ,
         ];
     }

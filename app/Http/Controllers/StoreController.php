@@ -65,7 +65,7 @@ class StoreController extends Controller
         $store['images'] = $tmpSlider;
         return $store;
     }
-    public function getOfferStores($perPage = 9, $currentPage = 1)
+    public function getOfferStores($perPage = 9, $currentPage = 1, $decodeImages = true)
     {
 
         Paginator::currentPageResolver(function () use ($currentPage) {
@@ -80,7 +80,9 @@ class StoreController extends Controller
             $tmp = DB::table('products')->select(DB::raw('max(off) as maxOff'))->where('store_id', $store['id'])->first();
             if ($tmp->maxOff) {
                 $store['max_off'] = $tmp->maxOff;
-                $store = $this->parseStoreImage($store);
+
+                if($decodeImages)//برای دیکد نکردن از سمت وب سرویس
+                    $store = $this->parseStoreImage($store);
                 $temp_store [] = $store;
             }
 
