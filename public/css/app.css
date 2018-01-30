@@ -198,9 +198,22 @@ header .nav nav .user-account h3.sign-text a.sign-in , header nav .user-account 
     margin:10px;
 }
 
+
+
 header .nav nav .user-account h3.sign-text a.sign-up{
     margin-left: 0;
 }
+
+header .nav nav .user-account h3.sign-text a.sign-in:hover , header .nav nav .user-account h3.sign-text a.sign-up:hover, header .nav nav .user-account h3.sign-text a.logout:hover{
+  color: white;
+}
+
+
+header .nav nav .user-account h3.sign-text a.logout{
+  margin-left: 0;
+  color: red;
+}
+
 
 header .nav nav .logo {
     display: -webkit-box;
@@ -515,6 +528,12 @@ header .header-bg .header-content .search-box .choose-boxes .choose-item i.anif-
     font-size: 1.4rem;
     font-weight: bold;
     color: #fff;
+}
+
+#content .row .row-content .items .item .image-box .logo-best-restaurant img{
+  width:50%;
+  margin-right: 70px;
+  justify-content: center;
 }
 
 #content .row .best-restaurant .items .item .image-box span.offer-percent{

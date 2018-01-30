@@ -4,11 +4,13 @@
         @foreach($storesWithRank as $store)
             <div class="item offer-item">
                 <div class="image-box">
-                    <a href="#"><img src="/img/offer-item.jpeg" alt="image-box"></a>
+                    <div class="logo-best-restaurant">
+                    <a href="{{route('store.show', ['storeUsername'=> $store->username])}}"><img src="{{$store->icon}}" alt="image-box"></a>
+                    </div>
                 </div>
                 <div class="caption-box">
                     <div class="info">
-                        <div class="title"><a href="#">{{ $store->name }}</a></div>
+                        <div class="title"><a href="{{route('store.show', ['storeUsername'=> $store->username])}}">{{ $store->name }}</a></div>
                     </div>
                 </div>
             </div>

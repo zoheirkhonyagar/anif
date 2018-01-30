@@ -15,7 +15,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+<<<<<<< HEAD
         'first_name' , 'last_name' , 'phone_number', 'password',
+=======
+        'first_name', 'last_name', 'user_name', 'phone_number', 'email', 'password','api_token', 'anif_code'
+>>>>>>> edr
     ];
 
     /**
@@ -24,6 +28,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token','api_token'
     ];
+
+
+    public function Address()
+    {
+        return $this->hasMany(UserAddress::class);
+    }
+
+    public function Customer()
+    {
+        return $this->hasMany(Customer::class);
+    }
 }

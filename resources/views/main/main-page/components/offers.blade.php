@@ -4,15 +4,15 @@
         @foreach($sortedWithOff as $store)
             <div class="item offer-item">
                 <div class="image-box">
-                    <a href="#"><img src="/img/offer-item.jpeg" alt="image-box"></a>
+                    <a href="{{route('store.show', ['store'=> $store->username])}}"><img src="{{$store->image}}" alt="image-box"></a>
                     <span class="offer-percent">تا {{ $store->max_off }}٪</span>
                 </div>
                 <div class="caption-box">
                     <div class="logo">
-                        <img src="/img/item-logo.png" alt="لوگو">
+                        <img src="{{$store->icon}}" alt="لوگو">
                     </div>
                     <div class="info">
-                        <div class="title"><a href="#">{{ $store->name }}</a></div>
+                        <div class="title"><a href="{{route('store.show', ['store'=> $store->username])}}">{{ $store->name }}</a></div>
                         <div class="location"><i class="fa fa-map-marker"></i>{{ $store->address }}</div>
                     </div>
                 </div>
