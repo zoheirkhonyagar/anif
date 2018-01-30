@@ -24,18 +24,14 @@ get copy of ".enve.example" and rename it to ".env"
 create database and add your database information into ".env" file
 ```
 #### step 6
-```
-create database and add your database information into ".env" file
-```
-#### step 7
 ``` bash
 $ php artisan key:generate
 ```
-#### step 8
+#### step 7
 ``` bash
 $ php artisan migrate
 ```
-#### step 9
+#### step 8
 ``` bash
 $ php artisan serve
 ```
