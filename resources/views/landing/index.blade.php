@@ -11,9 +11,9 @@ class DB
 //                        'database' => 'cp25654_citydb',
 //                        'username' => 'cp25654_edr9',
 //                        'password' => '9fbmH9$^_Ume'
-                        'database' => 'landing_anif',
+                        'database' => 'anif',
                         'username' => 'root',
-                        'password' => ''
+                        'password' => '09399568786'
                 ]
         ];
         try{
