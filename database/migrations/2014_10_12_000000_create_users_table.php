@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('first_name', 100)->nullable();
             $table->string('last_name', 100)->nullable();
+            $table->unsignedInteger('anif_code')->unique();
             $table->unsignedInteger('anif_code')->unique()->nullable();
             $table->string('user_name', 50)->unique()->nullable();
             $table->timestamp('birthday')->nullable();
@@ -39,12 +40,20 @@ class CreateUsersTable extends Migration
             $table->integer('code')->unsigned();
             $table->timestamps();
         });
+
+        Schema::create('tmp_register', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('phone_number', 11)->unique();
+            $table->integer('code')->unsigned();
+            $table->timestamps();
+        });
     }
 
 
     public function down()
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('tmp_register');
         Schema::dropIfExists('tmp_registers');
     }
 }

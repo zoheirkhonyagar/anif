@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Str;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -23,11 +27,32 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    public function showRegistrationForm()
+    {
+        return view('main.simpleAuth.register');
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $user->anif_code = $user->id;
+        $user->save();
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
+    }
+
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
+
     protected $redirectTo = '/v2';
 
     /**
@@ -50,6 +75,8 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -67,6 +94,7 @@ class RegisterController extends Controller
         return User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
+            'phone_number' => $data['phone_number'],
             'email' => $data['email'],
             'phone_number' => $data['phone_number'],
             'api_token' => Str::random(100),

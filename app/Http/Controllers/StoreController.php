@@ -85,7 +85,6 @@ class StoreController extends Controller
                     $store = $this->parseStoreImage($store);
                 $temp_store [] = $store;
             }
-
         }
 
         $temp_store = collect($temp_store);
