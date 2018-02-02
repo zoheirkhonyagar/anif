@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Interface extends Model
+class Interfaces extends Model
 {
-    //
+    protected $guarded = [];
+    protected $table = 'interfaces';
 }

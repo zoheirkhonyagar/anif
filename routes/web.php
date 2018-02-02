@@ -46,8 +46,8 @@ Route::group(['namespace' => 'Auth'],function (){
     $this->get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
     $this->post('password/reset', 'ResetPasswordController@reset');
 });
-
 Route::get('/{store}', 'StoreController@show')->name('store.show');
+
 // Route::get('/insert', function () {
 
 //    \App\StoreCategory::create([

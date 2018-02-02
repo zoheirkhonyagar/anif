@@ -1,20 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Requests\AddWSRequest;
 use App\ws_request;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class WSRequestController extends Controller
+class WSRequestController extends apiController
 {
-
-
-
-    public function insert(Request $request)
+    public function insertTo(AddWSRequest $request)
     {
-//        $request['date'] = strtotime($request['date']);
-        $validData = $this->validate($request, [
+        $validData = $this->validate($request,[
 
                 'position_id' => 'required|exists:anif_positions,id',
                 'day_section_id' => 'required|exists:day_sections,id',
@@ -39,12 +36,13 @@ class WSRequestController extends Controller
         if(count($wsRequestM->get()) != 0) //باید شمارنده رو یه دونه بالا ببریم
         {
             $wsRequestM->increment('count');
-            return 'ترافیک در این ساعت افزایش یافت';
+            return $this->RespondCreated('ترافیک در این ساعت افزایش یافت');
         }
 
 
         $wsRequestM = ws_request::create($validData);
 
-        return $wsRequestM;
+        return $this->respondTrue($wsRequestM);
     }
+
 }

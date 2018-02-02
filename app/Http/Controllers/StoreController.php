@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddWSRequest;
 use App\Store;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Route;
 
 class StoreController extends Controller
 {
@@ -20,6 +22,17 @@ class StoreController extends Controller
 
         $storesWithRank = $this->getBestStores(3);
         $storesWithRank = $storesWithRank['stores'];
+
+        $tmpRequest = AddWSRequest::create('api/v1/addWSRequest', 'POST', [
+            'interface_id' => 1,
+            'position_id' => 1,
+            'day_section_id' => 4,
+            'date' => '2018-1-30',
+            'unique_code' => 192168,
+            'user_id' => 17
+        ]);
+        $response = Route::dispatch($tmpRequest);
+        return $response;die;
 
         return view('main.main-page.index' , compact( 'sortedWithOff' , 'storesWithRank'));
 
