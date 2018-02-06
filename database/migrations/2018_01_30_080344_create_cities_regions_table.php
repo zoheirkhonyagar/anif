@@ -41,9 +41,11 @@ class CreateCitiesRegionsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('city_id');
             $table->unsignedInteger('region_id');
+            $table->unsignedInteger('store_id');
             $table->foreign('city_id')->references('id')->on('cities');
             $table->foreign('region_id')->references('id')->on('regions');
-            $table->unique(['city_id', 'region_id']);
+            $table->foreign('store_id')->references('id')->on('stores');
+            $table->unique(['city_id', 'region_id', 'store_id']);
             $table->boolean('is_free_delivery')->default(1);
             $table->integer('delivery_cost')->default(0);
             $table->integer('delivery_time')->default(0);

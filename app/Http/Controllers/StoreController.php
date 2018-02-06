@@ -23,16 +23,16 @@ class StoreController extends Controller
         $storesWithRank = $this->getBestStores(3);
         $storesWithRank = $storesWithRank['stores'];
 
-        $tmpRequest = AddWSRequest::create('api/v1/addWSRequest', 'POST', [
-            'interface_id' => 1,
-            'position_id' => 1,
-            'day_section_id' => 4,
-            'date' => '2018-1-30',
-            'unique_code' => 192168,
-            'user_id' => 17
-        ]);
-        $response = Route::dispatch($tmpRequest);
-        return $response;die;
+//        $tmpRequest = AddWSRequest::create('api/v1/addWSRequest', 'POST', [
+//            'interface_id' => 1,
+//            'position_id' => 1,
+//            'day_section_id' => 4,
+//            'date' => '2018-1-30',
+//            'unique_code' => 192168,
+//            'user_id' => 17
+//        ]);
+//        $response = Route::dispatch($tmpRequest);
+//        return $response;die;
 
         return view('main.main-page.index' , compact( 'sortedWithOff' , 'storesWithRank'));
 
@@ -78,7 +78,7 @@ class StoreController extends Controller
         $store['images'] = $tmpSlider;
         return $store;
     }
-    public function getOfferStores($perPage = 9, $currentPage = 1, $decodeImages = true)
+    public function getOfferStores($perPage = 9, $currentPage = 1, $decodeImages = true, $cityId = 1, $region_id = 1)
     {
 
         Paginator::currentPageResolver(function () use ($currentPage) {
@@ -86,11 +86,12 @@ class StoreController extends Controller
         });
 
 
-        $storesWithPaginate = Store::paginate($perPage);
+        $storesWithPaginate = Store::whereRaw("city_id = $cityId")->paginate($perPage);
         $temp_store = [];
         $stores = $storesWithPaginate->items();
         foreach ($stores as $store) {
-            $tmp = DB::table('products')->select(DB::raw('max(off) as maxOff'))->where('store_id', $store['id'])->first();
+            $tmp = DB::table('products')->select(DB::raw('max(off) as maxOff'))->
+                            where('store_id', $store['id'])->first();
             if ($tmp->maxOff) {
                 $store['max_off'] = $tmp->maxOff;
 
