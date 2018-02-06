@@ -27,8 +27,9 @@ Route::group(['prefix'=> 'v1', 'namespace'=> 'Api\v1'], function () {
     $this->post('login', 'UserController@login');
     $this->post('register', 'UserController@register');
     $this->post('sendVerifyCode', 'UserController@sendVerifyCode');
-    $this->get('getCities', 'CityController@getAllCities');
+    $this->post('getCities', 'CityController@getAllCities');
     $this->post('addWSRequest', 'WSRequestController@insertTo');
+    $this->post('getRegions', 'RegionController@getAll');
 
 
     Route::middleware('auth:api')->group(function ()
