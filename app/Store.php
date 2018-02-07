@@ -37,7 +37,8 @@ class Store extends Model
     {
         return [
             'slug' => [
-                'source' => 'username'
+                'source' => 'username',
+
             ]
         ];
     }

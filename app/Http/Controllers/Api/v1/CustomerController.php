@@ -22,8 +22,12 @@ class CustomerController extends apiController
         );
 
         $storeM = Store::find($request['store_id']);
-        $storeM['member_count'] = $storeM['member_count'] +1 ; //تعداد اعضای مجموعه را افزایش می دهم
-        $storeM->save();
+//        $storeM['member_count'] = $storeM['member_count'] +1 ; //تعداد اعضای مجموعه را افزایش می دهم
+//        $storeM->save();
+//        dd($storeM) ;die;
+
+        $storeM = Store::find($request['store_id']);
+        $storeM->increment('member_count');
 
         //اطلاعات این کاربر در مشتری های رستوران ذخیره می کنم
         auth()->user()->Customer()->create($validData);
