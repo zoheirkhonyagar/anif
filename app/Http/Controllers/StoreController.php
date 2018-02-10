@@ -30,9 +30,8 @@ class StoreController extends Controller
     {
         $store = $this->parseStoreImage($store);
         $categories = Store::find($store->id)->productCategory()->with('product')->get();
-
         if($categories)
-        return view('main.main-page.single-stores.show', compact('store','categories'));
+        return view('main.single-stores.newshow', compact('store','categories'));
 //        return $store;
     }
 

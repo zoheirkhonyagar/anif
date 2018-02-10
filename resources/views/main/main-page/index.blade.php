@@ -10,9 +10,14 @@
 
 @endsection
 
-@section('content')
+    @section('content')
+    
+        <div class="row container">
 
-    @include('main.main-page.components.offers')
-    @include('main.main-page.components.best-restaurant')
+            @include('main.main-page.components.offers')
+            @include('main.main-page.components.best-restaurant')
 
-@endsection
+        </div>
+
+    @endsection
+
