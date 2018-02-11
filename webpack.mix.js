@@ -15,6 +15,9 @@ mix.js('resources/assets/js/app.js', 'public/js/');
 mix.js('resources/assets/js/admin.js', 'public/js/admin/');
 mix.sass('resources/assets/sass/app.scss', 'public/css/');
 mix.sass('resources/assets/sass/admin.scss', 'public/css/admin/');
+mix.autoload({
+   jquery: ['$', 'window.jQuery']
+});
 if (mix.inProduction()) {
     mix.version();
 }
