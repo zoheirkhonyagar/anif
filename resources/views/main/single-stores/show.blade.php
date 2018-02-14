@@ -71,11 +71,14 @@
             <div class="number-of-member">
                 <div class="member">
                     <span>تعداد اعضا</span>
-                    <span>۴۵۶</span>
+                    <span>{{ $store->member_count }}</span>
                 </div>
-                <button class="btn-btn--yellow">
-                    <a href="#">عضویت در باشگاه مشتریان</a>
-                </button>
+                <form action="{{ route('customer.joinToCrm' , [ 'store' => $store ]) }}" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <button class="btn-btn--yellow">
+                        عضویت در باشگاه مشتریان
+                    </button>
+                </form>
             </div>
         </div>
     </div>

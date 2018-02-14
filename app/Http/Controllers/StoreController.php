@@ -152,4 +152,5 @@ class StoreController extends Controller
             'limit' => $data->perPage()
         ];
     }
+
 }

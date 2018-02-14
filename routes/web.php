@@ -47,7 +47,7 @@ Route::group(['namespace' => 'Auth'],function (){
     $this->post('password/reset', 'ResetPasswordController@reset');
 });
 Route::get('/{store}', 'StoreController@show')->name('store.show');
-
+Route::post('/{store}/join', 'CustomerController@joinToCrm')->name('customer.joinToCrm');
 // Route::get('/insert', function () {
 
 //    \App\StoreCategory::create([

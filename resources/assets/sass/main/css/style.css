@@ -1070,11 +1070,11 @@ cursor: pointer;
     background-color: #fabc05;
     border: none;
     border-radius: 5px;
+    color: #fff;
 }
 
-.number-of-member .btn-btn--yellow a{
-    color: #fff;
-    border: 1px;
+.number-of-member .btn-btn--yellow:hover{
+    cursor: pointer;
 }
 
 /*--------------- row-content-show-products ----------------*/

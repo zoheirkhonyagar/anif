@@ -36,9 +36,8 @@ class Store extends Model
     public function sluggable()
     {
         return [
-            'slug' => [
+            'username' => [
                 'source' => 'username',
-
             ]
         ];
     }
