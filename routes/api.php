@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix'=> 'v1', 'namespace'=> 'Api\v1'], function () {
 
     $this->get('getOfferStores', 'StoreController@getOfferStores');
+//    $this->post('getStores', 'StoreController@getOfferStores');
     $this->get('getBestStores', 'StoreController@getBestStores');
     $this->get('getStore', 'StoreController@show');
     $this->post('getStoreCategory', 'StoreController@showAllCategory');
@@ -34,6 +35,7 @@ Route::group(['prefix'=> 'v1', 'namespace'=> 'Api\v1'], function () {
 
     Route::middleware('auth:api')->group(function ()
     {
+        $this->post('getStores', 'StoreController@getOfferStores');
         Route::post('joinToCRM', 'CustomerController@storeCustomer');
         Route::post('getCustomer', 'CustomerController@getCustomer');
 

@@ -17,6 +17,7 @@ class StoreController extends Controller
 
     public function index()
     {
+		//return auth()->user();
         $sortedWithOff = $this->getOfferStores();
         $sortedWithOff = $sortedWithOff['stores'];
 
@@ -77,23 +78,36 @@ class StoreController extends Controller
         $store['images'] = $tmpSlider;
         return $store;
     }
-    public function getOfferStores($perPage = 9, $currentPage = 1, $decodeImages = true, $cityId = 1, $region_id = 1)
+    public function getOfferStores($perPage = 9, $currentPage = 1, $decodeImages = true, $cityId = 1, $region_id = 0, $sortBy = 'max_off', $sortType = 'desc')
     {
 
         Paginator::currentPageResolver(function () use ($currentPage) {
             return $currentPage;
         });
 
-
-        $storesWithPaginate = Store::whereRaw("city_id = $cityId")->paginate($perPage);
+        if($region_id == 0)
+            $storesWithPaginate = Store::whereRaw("city_id = $cityId")->paginate($perPage);
+        else
+        {
+            $storesWithPaginate = Store::join('store_regions', function ($join) use ($region_id) {
+                $join->on('stores.id', '=', 'store_regions.store_id')
+                    ->where('store_regions.region_id', '=', $region_id);
+            })->paginate($perPage);
+        }
+//        $storesWithPaginate = DB::table('stores')->paginate($perPage);
         $temp_store = [];
         $stores = $storesWithPaginate->items();
+//        dd($storesWithPaginate);die;
+//        $tmp = [];
+
+//        $stores = (array)$stores;
         foreach ($stores as $store) {
+//            var_dump($store);
             $tmp = DB::table('products')->select(DB::raw('max(off) as maxOff'))->
                             where('store_id', $store['id'])->first();
+//            dd($tmp);
             if ($tmp->maxOff) {
                 $store['max_off'] = $tmp->maxOff;
-
                 if($decodeImages)//برای دیکد نکردن از سمت وب سرویس
                     $store = $this->parseStoreImage($store);
                 $temp_store [] = $store;
@@ -102,7 +116,10 @@ class StoreController extends Controller
 
         $temp_store = collect($temp_store);
 
-        $sortedWithOff = $temp_store->sortByDesc('max_off')->values()->all();
+        if($sortType == 'desc')
+            $sortedWithOff = $temp_store->sortByDesc($sortBy)->values()->all();
+        else
+            $sortedWithOff = $temp_store->sortBy($sortBy)->values()->all();
 
         $sortedWithOff = [
             'stores' => $sortedWithOff,

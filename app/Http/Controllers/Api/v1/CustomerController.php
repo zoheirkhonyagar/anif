@@ -52,4 +52,6 @@ class CustomerController extends apiController
             return $this->respondBadRequest('Bad Request: This user is not registered to the customer club.','شما در باشگاه مشتریان مجموعه عضو نمی باشید.');
         return $this->respondTrue($customerM->get());
     }
+
+    
 }
