@@ -30,7 +30,10 @@ class CustomerController extends apiController
         $storeM->increment('member_count');
 
         //اطلاعات این کاربر در مشتری های رستوران ذخیره می کنم
-        auth()->user()->Customer()->create($validData);
+        $customers = auth()->user()->Customer()->create($validData);
+
+        $customers['TM'] = $storeM['crm_TM'] ;
+        $customers->save();
 
         return $this->RespondCreated('شما به باشگاه مشتریان این مجموعه پیوستید.');
     }
@@ -50,6 +53,28 @@ class CustomerController extends apiController
 
         if($customerM->count() == 0)
             return $this->respondBadRequest('Bad Request: This user is not registered to the customer club.','شما در باشگاه مشتریان مجموعه عضو نمی باشید.');
+        return $this->respondTrue($customerM->get());
+    }
+
+    public function exitCustomer(Request $request)
+    {
+        $validData = $this->validate($request, [
+                'store_id' => 'required',
+            ]
+        );
+
+        $userId = auth()->user()->id;
+        $customerM = DB::table('customers')->where('store_id', $validData['store_id'])
+            ->where('user_id', $userId);
+
+//        $customerM = auth()->user()->Customer()->get();
+
+        if($customerM->count() == 0)
+            return $this->respondBadRequest('Bad Request: This user is not registered to the customer club.','شما در باشگاه مشتریان مجموعه عضو نمی باشید.');
+
+        $customerM['is_active'] = false ;
+        $customerM->save();
+        dd($customerM) ;die;
         return $this->respondTrue($customerM->get());
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\City;
 use App\Customer;
 use App\Http\Resources\v1\Store as ResourceStore;
 use Illuminate\Http\Request;
@@ -36,7 +37,6 @@ class StoreController extends apiController
         if(! isset($request['api_token']))
         {
             $request['filter_type'] = 'offer';
-
         }
 
         if(!isset($request['sort_type']) && !isset($request['sort_by']))
@@ -72,7 +72,7 @@ class StoreController extends apiController
         else if($request['filter_type'] == 'new')
             $storesOffer = $storeC->getOfferStores(5, 1, false, $validData['city_id'], $validData['region_id'], 'created_at', 'desc');
 
-        return $this->respondTrue($this->setIconAndImage($storesOffer));
+        return $this->respondTrue( $this->setIconAndImage($storesOffer) );
     }
 
 

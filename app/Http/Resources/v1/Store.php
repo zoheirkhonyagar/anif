@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\v1;
 
+use App\City;
+use App\Region;
 use Illuminate\Http\Resources\Json\Resource;
 
 class Store extends Resource
@@ -14,8 +16,27 @@ class Store extends Resource
      */
     public function toArray($request)
     {
-        if($this->explain == null)
+        $optionsStore = explode("-", $this['explain']);
+        $this['features'] = $optionsStore;
+        $city = City::find($this['city_id']);
+        $this['telegram_bot'] = "https://telegram.me/".$city['bot_username']."?start=store-".$this['username'];
+
+        $store_id = $this->id;
+        $regions = Region::join('store_regions', function ($join) use ($store_id) {
+            $join->on('regions.id', '=', 'store_regions.region_id')
+                ->where('store_regions.store_id', '=', $store_id);
+        })->pluck('name');
+
+
+        $this['regions'] = $regions;
+
+        if($this->explain == null || $this->explain != null)
             $this->explain = '';
+        if($this->crm_TM == 0)
+            $this->message_join_crm = "در باشگاه مشتریان ".$this->name." عضو شو و ".$this->message_join_crm;
+        else
+            $this->message_join_crm = "در باشگاه مشتریان ".$this->name." عضو شو و ".$this->crm_TM." TM"." هدیه بگیر!";
+
         if($this->rank == null)
             $this->rank = -1;
         $getUrl = url('/');
@@ -42,6 +63,9 @@ class Store extends Resource
             'address' => $this->address ,
             'rank' => $this->rank ,
             'member_count' => $this->member_count ,
+            'message_join_crm' => $this->message_join_crm ,
+            'features' => $this->features ,
+            'regions' => $this->regions ,
             'explain' => $this->explain ,
             'images' => $tmpSlider ,
             'working_hours' => $this->working_hours ,
@@ -55,7 +79,9 @@ class Store extends Resource
             'is_open' => $this->is_online_order ,
             'latitude' => $this->latitude ,
             'longitude' => $this->longitude ,
-            'telegram_link' => 'https://t.me/zahedanAnifBot',
+            'instagram' => $this->instagram ,
+            'telegram' => $this->telegram ,
+            'telegram_bot' => $this->telegram_bot,
             'max_off' => $this->max_off ,
             'icon' =>  $arrImg['icon'] ,
             'image' => $url. $arrImg['images']['slides'][0]['200'] ,

@@ -28,6 +28,11 @@ class Store extends Model
         return $this->hasMany(Customer::class);
     }
 
+    public function region()
+    {
+        return $this->hasMany(StoreR::class);
+    }
+
     /**
      * Return the sluggable configuration array for this model.
      *
