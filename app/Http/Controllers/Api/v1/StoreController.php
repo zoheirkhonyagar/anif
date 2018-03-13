@@ -25,11 +25,14 @@ class StoreController extends apiController
         $validData = $this->validate($request, [
             'city_id' => 'exists:cities,id',
             'region_id' => 'exists:regions,id',
+            'store_category' => 'exists:store_categories,id',
         ]);
         if(! isset($request['city_id']))
             $validData['city_id'] = 1;
         if(! isset($request['region_id']))
             $validData['region_id'] = 0;
+        if(! isset($request['store_category']))
+            $validData['store_category'] = 0;
 
         if(! isset($request['filter_type']))
             $request['filter_type'] = 'offer';
@@ -66,11 +69,11 @@ class StoreController extends apiController
         $page = Input::get('page') ?: 1;
         $storeC = new \App\Http\Controllers\StoreController();
         if($request['filter_type'] == 'offer')
-            $storesOffer = $storeC->getOfferStores($perPage, $page, false, $validData['city_id'], $validData['region_id'],$request['sort_by'], $request['sort_type']);
+            $storesOffer = $storeC->getOfferStores($perPage, $page, false, $validData['city_id'], $validData['region_id'],$request['sort_by'], $request['sort_type'], $validData['store_category']);
         else if($request['filter_type'] == 'best')
-            $storesOffer = $storeC->getOfferStores(5, 1, false, $validData['city_id'], $validData['region_id'], $request['sort_by'], $request['sort_type']);
+            $storesOffer = $storeC->getOfferStores(5, 1, false, $validData['city_id'], $validData['region_id'], $request['sort_by'], $request['sort_type'], $validData['store_category']);
         else if($request['filter_type'] == 'new')
-            $storesOffer = $storeC->getOfferStores(5, 1, false, $validData['city_id'], $validData['region_id'], 'created_at', 'desc');
+            $storesOffer = $storeC->getOfferStores(5, 1, false, $validData['city_id'], $validData['region_id'], 'created_at', 'desc', $validData['store_category']);
 
         return $this->respondTrue( $this->setIconAndImage($storesOffer) );
     }

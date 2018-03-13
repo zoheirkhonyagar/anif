@@ -78,7 +78,7 @@ class StoreController extends Controller
         $store['images'] = $tmpSlider;
         return $store;
     }
-    public function getOfferStores($perPage = 9, $currentPage = 1, $decodeImages = true, $cityId = 1, $region_id = 0, $sortBy = 'max_off', $sortType = 'desc')
+    public function getOfferStores($perPage = 9, $currentPage = 1, $decodeImages = true, $cityId = 1, $region_id = 0, $sortBy = 'max_off', $sortType = 'desc', $storeCategory = 0)
     {
 
         Paginator::currentPageResolver(function () use ($currentPage) {
@@ -86,13 +86,29 @@ class StoreController extends Controller
         });
 
         if($region_id == 0)
-            $storesWithPaginate = Store::whereRaw("city_id = $cityId")->paginate($perPage);
+        {
+            if($storeCategory == 0)
+                $storesWithPaginate = Store::whereRaw("city_id = $cityId")->paginate($perPage);
+            else
+                $storesWithPaginate = Store::where("city_id", '=', $cityId )->where("s_category_id" ,'=', $storeCategory)->paginate($perPage);
+
+        }
         else
         {
-            $storesWithPaginate = Store::join('store_regions', function ($join) use ($region_id) {
-                $join->on('stores.id', '=', 'store_regions.store_id')
-                    ->where('store_regions.region_id', '=', $region_id);
-            })->paginate($perPage);
+            if($storeCategory == 0)
+            {
+                $storesWithPaginate = Store::join('store_regions', function ($join) use ($region_id) {
+                    $join->on('stores.id', '=', 'store_regions.store_id')
+                        ->where('store_regions.region_id', '=', $region_id);
+                })->paginate($perPage);
+            }
+            else if($storeCategory != 0)
+            {
+                $storesWithPaginate = Store::join('store_regions', function ($join) use ($region_id, $storeCategory) {
+                    $join->on('stores.id', '=', 'store_regions.store_id')
+                        ->where("store_regions.region_id" ,'=' ,$region_id)->where("stores.s_category_id", '=' ,$storeCategory);
+                })->paginate($perPage);
+            }
         }
 //        $storesWithPaginate = DB::table('stores')->paginate($perPage);
         $temp_store = [];
