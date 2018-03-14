@@ -248,6 +248,21 @@
             display: none;
         }
 
+        .last-anif-register{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        a.login-anifBtn{
+            background: #fabc2a;
+            display: flex;
+            padding: 20px 10px;
+            justify-content: center;
+            width: 25%;
+            border-radius: 10px;
+        }
 
         /***** Media queries *****/
 
@@ -301,8 +316,20 @@
         }
         footer{
             margin-top:0;
+        } 
+        .help-block{
+            display: block;
+            direction: rtl;
+            text-align: right;
+            color: #ff2424;
+            padding: 0px 0 10px 0;
+            font-size: 100%;
         }
     </style>
+@endsection
+
+@section('header-meta')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('custom-header')
@@ -325,25 +352,40 @@
             });
 
             // next step
+            // $('.registration-form .btn-next').on('click', function() {
+            //     var parent_fieldset = $(this).parents('fieldset');
+            //     var next_step = true;
+
+            //     parent_fieldset.find('input[type="text"], input[type="password"], textarea').each(function() {
+            //         if( $(this).val() == "" ) {
+            //             $(this).addClass('input-error');
+            //             next_step = false;
+            //         }
+            //         else {
+            //             $(this).removeClass('input-error');
+            //         }
+            //     });
+
+            //     if( next_step ) {
+            //         parent_fieldset.fadeOut(400, function() {
+            //             $(this).next().fadeIn();
+            //         });
+            //     }
+
+            // });
+
+            // show errors
             $('.registration-form .btn-next').on('click', function() {
                 var parent_fieldset = $(this).parents('fieldset');
-                var next_step = true;
 
                 parent_fieldset.find('input[type="text"], input[type="password"], textarea').each(function() {
                     if( $(this).val() == "" ) {
                         $(this).addClass('input-error');
-                        next_step = false;
                     }
                     else {
                         $(this).removeClass('input-error');
                     }
                 });
-
-                if( next_step ) {
-                    parent_fieldset.fadeOut(400, function() {
-                        $(this).next().fadeIn();
-                    });
-                }
 
             });
 
@@ -355,20 +397,123 @@
             });
 
             // submit
-            $('.registration-form').on('submit', function(e) {
+            // $('.registration-form').on('submit', function(e) {
 
-                $(this).find('input[type="text"], input[type="password"], textarea').each(function() {
-                    if( $(this).val() == "" ) {
-                        e.preventDefault();
-                        $(this).addClass('input-error');
-                    }
-                    else {
-                        $(this).removeClass('input-error');
-                    }
-                });
+            //     $(this).find('input[type="text"], input[type="password"], textarea').each(function() {
+            //         if( $(this).val() == "" ) {
+            //             e.preventDefault();
+            //             $(this).addClass('input-error');
+            //         }
+            //         else {
+            //             $(this).removeClass('input-error');
+            //         }
+            //     });
 
+            // });
+
+            $('#register_button').click(function(e){
+                e.preventDefault();
+                var phone = $('#form-phone-number').val();
+                var first_name = $('#form-first-name').val();
+                var last_name = $('#form-last-name').val();
+                var password = $('#form-password').val();
+                var password_confirm = $('#form-confirm-password').val();
+                var confirm = password == password_confirm ? true : false;
+                var status = register(phone , first_name , last_name , password , password_confirm);
             });
 
+            $('#phone_button').click(function(e){
+                //e.preventDefault();
+                var phone = $('#form-phone-number').val();
+                var next_step = false;
+                if(phone){
+                    sendVerifyCode(phone);
+                    
+                }
+                    
+            });
+
+            $('#verify_button').click(function(e){
+                var phone = $('#form-phone-number').val();
+                var verify_code = $('#form-verify').val();
+                if(phone && verify_code)
+                    checkVerifyCode(phone , verify_code);
+            });
+
+            function sendVerifyCode(phone) {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
+                    url: '{{route("sendVerifyCode")}}',
+                    data: {phone_number:phone},
+                    success: function(response) {
+                        console.log(response);
+                        $('#step_one').fadeOut(400 , function()  {
+                            $('#step_two').fadeIn();
+                        });
+                    },
+                    error: function(data){
+                        var errors = data.responseJSON;
+                        var phone_error = errors.errors.phone_number[0];
+                        $('#phone_error').html(phone_error).fadeIn();
+                        console.log(phone_error);
+                        // Render the errors with js ...
+                    }
+                })
+            };
+
+            function checkVerifyCode(phone , verify_code){
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
+                    url: '{{route("checkVerifyCode")}}',
+                    data: {phone_number:phone , verify_code:verify_code},
+                    success: function(response) {
+                        $('#step_two').fadeOut(400 , function()  {
+                            $('#step_three').fadeIn();
+                        });
+                        console.log(response);
+                    },
+                    error: function(data){
+                        var errors = data.responseJSON;
+                        var verify_error = errors.errors.verify;
+                        $('#verify_error').html(verify_error).fadeIn();
+                        console.log(verify_error);
+                        // Render the errors with js ...
+                    }
+                })
+            }
+
+            function register(phone , first_name , last_name , password , password_confirm){
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
+                    url: '{{route("form-register")}}',
+                    data: {phone_number:phone , first_name:first_name , last_name:last_name , password:password , password_confirmation:password_confirm},
+                    success: function(response) {
+                        $('#step_three').fadeOut(400 , function()  {
+                            $('#step_four').fadeIn();
+                        });
+                        console.log(response);
+                    },
+                    error: function(data){
+                        var errors = data.responseJSON.errors;
+
+                        for(var error in errors){
+                            $('#'+error+'_error').html(errors[error][0]).fadeIn();
+                            // console.log(error);
+                            // console.log(errors[error][0]);    
+                        }
+                        // Render the errors with js ...
+                    }
+                })
+            }
 
         });
 

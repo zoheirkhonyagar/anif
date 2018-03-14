@@ -72,7 +72,7 @@ class UserController extends apiController
         $anifCode = $user['id'] +809 ;
 
         $user['anif_code'] = $anifCode;
-        $user->save() ;
+        $user->save();
 
         $user = new UserResource($user);
         return $this->respondTrue($user);
