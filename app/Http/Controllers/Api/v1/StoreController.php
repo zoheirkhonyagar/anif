@@ -127,4 +127,45 @@ class StoreController extends apiController
 
         return $this->respondInternalError();
     }
+
+    public function search(Request $request)
+    {
+        $validData = $this->validate($request, [
+                'text' => 'required',
+                'city_id' => 'exists:cities,id',
+            ]
+        );
+
+        if(! isset($request['city_id']))
+            $validData['city_id'] = 1;
+        $text = $validData['text'];
+//        $stores = Store::where(function ($q) use ($text, $validData) {
+//            $q->where("city_id", '=', $validData['city_id'] )->Where('name', 'like', "%{$text}%")->orWhere('address', 'like', "%{$text}%")->orWhere('explain', 'like', "%{$text}%");
+//        })->paginate(5);
+
+        $stores = Store::where("city_id", '=', $validData['city_id'] )
+            ->where('name', 'like', "%{$text}%")
+                ->orWhere('address', 'like', "%{$text}%")
+                    ->orWhere('explain', 'like', "%{$text}%")->get();
+
+
+
+        if($stores->count() != 0)
+        {
+            $tmpS = [];
+            foreach ($stores as $store)
+            {
+                $tmp = DB::table('products')->select(DB::raw('max(off) as maxOff'))->
+                where('store_id', $store['id'])->first();
+                if ($tmp->maxOff) {
+                    $store['max_off'] = $tmp->maxOff;
+                    $tmpS[] = new ResourceStore($store);
+                }
+            }
+            return $this->respondTrue($tmpS);
+        }
+
+        return $this->respondNotFound("Your search - $text - did not match any documents.", "جستجوی شما ". $text ." هیچ موردی یافت نشد");
+
+    }
 }

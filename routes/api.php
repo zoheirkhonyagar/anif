@@ -31,6 +31,7 @@ Route::group(['prefix'=> 'v1', 'namespace'=> 'Api\v1'], function () {
     $this->post('getCities', 'CityController@getAllCities');
     $this->post('addWSRequest', 'WSRequestController@insertTo');
     $this->post('getRegions', 'RegionController@getAll');
+    $this->post('storeSearch', 'StoreController@search');
 
 
     Route::middleware('auth:api')->group(function ()
