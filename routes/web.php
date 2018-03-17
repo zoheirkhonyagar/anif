@@ -32,7 +32,7 @@ Route::group(['namespace' => 'Auth'],function (){
 
     // Authentication Routes...
     $this->get('login', 'LoginController@showLoginForm')->name('login');
-    $this->post('login', 'LoginController@login');
+    $this->post('login', 'LoginController@login')->name('login-post');
     $this->post('logout', 'LoginController@logout')->name('logout');
     $this->get('logout', 'LoginController@logout')->name('logout');
 
