@@ -78,7 +78,7 @@ class StoreController extends Controller
         $store['images'] = $tmpSlider;
         return $store;
     }
-    public function getOfferStores($perPage = 9, $currentPage = 1, $decodeImages = true, $cityId = 1, $region_id = 0, $sortBy = 'sort_weight', $sortType = 'desc', $filterType = null ,$storeCategory = 0)
+    public function getOfferStores($perPage = 9, $currentPage = 1, $decodeImages = true, $cityId = 1, $region_id = 0, $sortBy = 'sort_weight', $sortType = 'desc', $filterType = 'no' ,$storeCategory = 0)
     {
 
         Paginator::currentPageResolver(function () use ($currentPage) {
@@ -122,7 +122,7 @@ class StoreController extends Controller
             $store['max_off'] = $tmp->maxOff;
             if($decodeImages)//برای دیکد نکردن از سمت وب سرویس
                 $store = $this->parseStoreImage($store);
-            if($filterType == 'best' || $filterType == null)
+            if($filterType == 'best' || $filterType == 'no')
                 $temp_store [] = $store;
             else if($filterType == 'offer')
             {
