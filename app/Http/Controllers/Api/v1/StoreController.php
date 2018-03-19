@@ -37,43 +37,16 @@ class StoreController extends apiController
         if(! isset($request['filter_type']))
             $request['filter_type'] = 'offer';
 
-        if(! isset($request['api_token']))
-        {
-            $request['filter_type'] = 'offer';
-        }
-
         if(!isset($request['sort_type']) && !isset($request['sort_by']))
         {
             $request['sort_by'] = 'max_off';
             $request['sort_type'] = 'desc';
         }
 
-        $customerM = null;
-        if( isset($request['api_token']))
-        {
-            $request['filter_type'] = 'offer';
-            $user = new UserResource(auth()->user());
-
-//            dd($user['id']);die;
-//            $customerM = Custome ::where([
-////                            'store_id' => 3,
-//                            'user_id' => $user['id'],
-//            ]);
-            $customerM = DB::table('customers')->whereRaw(
-                'user_id = '. $user['id'].' and store_id = 3'
-            )->get();
-
-            return $this->respondTrue($customerM);
-        }
         $perPage = Input::get('per_page') ?: 9 ;
         $page = Input::get('page') ?: 1;
         $storeC = new \App\Http\Controllers\StoreController();
-        if($request['filter_type'] == 'offer')
-            $storesOffer = $storeC->getOfferStores($perPage, $page, false, $validData['city_id'], $validData['region_id'],$request['sort_by'], $request['sort_type'], $validData['store_category']);
-        else if($request['filter_type'] == 'best')
-            $storesOffer = $storeC->getOfferStores(5, 1, false, $validData['city_id'], $validData['region_id'], $request['sort_by'], $request['sort_type'], $validData['store_category']);
-        else if($request['filter_type'] == 'new')
-            $storesOffer = $storeC->getOfferStores(5, 1, false, $validData['city_id'], $validData['region_id'], 'created_at', 'desc', $validData['store_category']);
+        $storesOffer = $storeC->getOfferStores($perPage, $page, false, $validData['city_id'], $validData['region_id'],$request['sort_by'], $request['sort_type'], $request['filter_type'],$validData['store_category']);
 
         return $this->respondTrue( $this->setIconAndImage($storesOffer) );
     }

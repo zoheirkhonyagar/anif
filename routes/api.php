@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix'=> 'v1', 'namespace'=> 'Api\v1'], function () {
 
     $this->get('getOfferStores', 'StoreController@getOfferStores');
-    $this->post('getStores', 'StoreController@getOfferStores');
+    $this->post('getStores', 'StoreController@getStores');
     $this->get('getBestStores', 'StoreController@getBestStores');
     $this->post('getStore', 'StoreController@show');
     $this->post('getStoreCategory', 'StoreController@showAllCategory');

@@ -16,6 +16,7 @@ class AddNewInfoStoresCustomers extends Migration
         Schema::table('stores', function (Blueprint $table) {
             $table->string('instagram', 110)->after('menu_link')->nullable();
             $table->string('telegram', 110)->after('instagram')->nullable();
+            $table->unsignedInteger('visit_count')->after('rank')->default(0);
             $table->integer('crm_TM')->after('member_count')->default(0);
             $table->string('message_join_crm', 110)->after('member_count')->nullable();
             $table->boolean('is_active')->after('is_online_order')->default(1);
