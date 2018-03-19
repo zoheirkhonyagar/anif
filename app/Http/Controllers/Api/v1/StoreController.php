@@ -35,7 +35,7 @@ class StoreController extends apiController
             $validData['store_category'] = 0;
 
         if(! isset($request['filter_type']))
-            $request['filter_type'] = 'offer';
+            $request['filter_type'] = null;
 
         if(!isset($request['sort_type']) && !isset($request['sort_by']))
         {

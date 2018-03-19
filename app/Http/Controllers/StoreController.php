@@ -78,7 +78,7 @@ class StoreController extends Controller
         $store['images'] = $tmpSlider;
         return $store;
     }
-    public function getOfferStores($perPage = 9, $currentPage = 1, $decodeImages = true, $cityId = 1, $region_id = 0, $sortBy = 'sort_weight', $sortType = 'desc', $filterType ,$storeCategory = 0)
+    public function getOfferStores($perPage = 9, $currentPage = 1, $decodeImages = true, $cityId = 1, $region_id = 0, $sortBy = 'sort_weight', $sortType = 'desc', $filterType = null ,$storeCategory = 0)
     {
 
         Paginator::currentPageResolver(function () use ($currentPage) {
@@ -114,25 +114,24 @@ class StoreController extends Controller
         $stores = $storesWithPaginate->items();
 
         foreach ($stores as $store) {
+            if($region_id != 0)
+                $store['id'] = $store['store_id'];
             $tmp = DB::table('products')->select(DB::raw('max(off) as maxOff'))->
                             where('store_id', $store['id'])->first();
 
-            if ($tmp->maxOff) {
-                $store['max_off'] = $tmp->maxOff;
-                if($decodeImages)//برای دیکد نکردن از سمت وب سرویس
-                    $store = $this->parseStoreImage($store);
-                if($filterType == 'best')
+            $store['max_off'] = $tmp->maxOff;
+            if($decodeImages)//برای دیکد نکردن از سمت وب سرویس
+                $store = $this->parseStoreImage($store);
+            if($filterType == 'best' || $filterType == null)
+                $temp_store [] = $store;
+            else if($filterType == 'offer')
+            {
+                if($store['max_off'] > 0)
                     $temp_store [] = $store;
-                else
-                {
-                    if($store['max_off'] > 0)
-                        $temp_store [] = $store;
-                }
             }
         }
 
         $temp_store = collect($temp_store);
-
 
         if($sortType == 'desc')
             $sortedWithOff = $temp_store->sortByDesc($sortBy)->values()->all();
