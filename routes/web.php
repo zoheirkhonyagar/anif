@@ -49,9 +49,6 @@ Route::group(['namespace' => 'Auth'],function (){
 Route::get('/{store}', 'StoreController@show')->name('store.show');
 Route::post('/{store}/join', 'CustomerController@joinToCrm')->name('customer.joinToCrm');
 
-
-
-
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/' , function () {
         return view('admin.dashboard.index');

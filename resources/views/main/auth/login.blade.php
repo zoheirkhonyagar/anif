@@ -351,7 +351,6 @@
                 $(this).removeClass('input-error');
             });
 
-     
             // show errors
             $('.registration-form .btn-next').on('click', function() {
                 var parent_fieldset = $(this).parents('fieldset');

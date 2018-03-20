@@ -36,8 +36,8 @@
     </header>
 @endsection
 @section('content')
-<div class="row container mb10px">
-        <div class="row-content flex-row MIC_P">
+<div class="row container mb10px ">
+        <div class="row-content flex-row MIC_P flex-end">
             <div class="MIN">
                 <span id="store-menu">منوی رستوران</span>
                 <span id="store-info">اطلاعات رستوران</span>
@@ -56,8 +56,8 @@
         </div>
     </div>
     <div class="row container mb10px">
-        <div class="row-content flex-row category-container">
-            <div class="category">
+        <div class="row-content flex-row category-container flex-end">
+            <div id="categories" class="category" style="display:none;">
                 <div class="category-section__nav">
                       <div class="category-section__nav-btn">
                           <div class="owl-carousel owl-theme sub-menu">
@@ -67,6 +67,9 @@
                         </div>
                       </div>
                 </div>
+            </div>
+            <div id="placement" style="">
+                <h3></h3>
             </div>
             <div class="number-of-member">
                 <div class="member">
@@ -83,7 +86,7 @@
         </div>
     </div>
     <div class="row container mb10px">
-        <div class="row-content flex-row show-products">
+        <div class="row-content flex-row show-products flex-end">
             <div class="show-products-item">
                 @foreach($categories as $category)
                     <div class="title">
@@ -225,6 +228,30 @@
             bestSeller.trigger('prev.owl.carousel');
         });        
 
+        $('.MIN span').click(function(e){
+            e.preventDefault();
+            $(this).parents().find('.MIN span').each(function(){
+                $(this).removeClass('MIN-hover');
+            });
+            $(this).addClass('MIN-hover');
+            // alert($(this).attr('id'));
+            var menu_id = $(this).attr('id')
+            switch(menu_id) {
+                case 'store-menu':
+                    // alert(menu_id);
+                    break;
+                case 'store-info':
+                    // alert(menu_id);
+                    $('#placement h3').html($(this).html());
+                    break;
+                case 'customer-comments':
+                    // alert(menu_id);
+                    $('#placement h3').html($(this).html());
+                    break;
+                default:
+                    //code block
+            }
+        });
 
     </script>
 @endsection
