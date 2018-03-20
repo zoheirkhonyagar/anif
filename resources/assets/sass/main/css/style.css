@@ -1078,6 +1078,7 @@ cursor: pointer;
     font-size: 1.1em;
     overflow: hidden;
     position: relative;
+    justify-content: center;
 }
 
 .number-of-member  .member span{
@@ -1119,6 +1120,39 @@ cursor: pointer;
 
 .show-products-item .title{
     display: flex;
+}
+
+#show-information-box .title{
+    justify-content: center;
+}
+
+#show-information-box .title h2 i {
+    margin-left: 10px;
+}
+
+#show-information-box .info-content{
+    display: flex;
+    justify-content: center;
+}
+
+#show-information-box .info-content .features{
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 60%;
+}
+
+#show-information-box .info-content .features .feature-item{
+    width: calc(50% - 40px);
+}
+
+#show-information-box .info-content .features .feature-item i{
+    color:#04974b;
+}
+
+#show-information-box .info-content h3{
+    text-align: center;
 }
 
 .show-products-item .title h3{
@@ -1244,5 +1278,5 @@ cursor: pointer;
 }
 
 .flex-end{
-    justify-content: flex-end;
+    justify-content: flex-end !important;
 }

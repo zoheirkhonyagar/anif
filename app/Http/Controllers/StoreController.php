@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AddWSRequest;
 use App\Store;
+use App\Region;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\AddWSRequest;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Route;
 

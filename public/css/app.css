@@ -1341,6 +1341,9 @@ cursor: pointer;
     font-size: 1.1em;
     overflow: hidden;
     position: relative;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 .number-of-member  .member span{
@@ -1398,6 +1401,53 @@ cursor: pointer;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+}
+
+#show-information-box .title{
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+
+#show-information-box .title h2 i {
+    margin-left: 10px;
+}
+
+#show-information-box .info-content{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+
+#show-information-box .info-content .features{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    width: 60%;
+}
+
+#show-information-box .info-content .features .feature-item{
+    width: calc(50% - 40px);
+}
+
+#show-information-box .info-content .features .feature-item i{
+    color:#04974b;
+}
+
+#show-information-box .info-content h3{
+    text-align: center;
 }
 
 .show-products-item .title h3{
@@ -1562,9 +1612,9 @@ cursor: pointer;
 }
 
 .flex-end{
-    -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
+    -webkit-box-pack: end !important;
+        -ms-flex-pack: end !important;
+            justify-content: flex-end !important;
 }/*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)

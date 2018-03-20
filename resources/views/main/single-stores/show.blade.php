@@ -57,7 +57,7 @@
     </div>
     <div class="row container mb10px">
         <div class="row-content flex-row category-container flex-end">
-            <div id="categories" class="category" style="display:none;">
+            <div id="categories" class="category">
                 <div class="category-section__nav">
                       <div class="category-section__nav-btn">
                           <div class="owl-carousel owl-theme sub-menu">
@@ -68,7 +68,7 @@
                       </div>
                 </div>
             </div>
-            <div id="placement" style="">
+            <div id="placement" style="display:none;">
                 <h3></h3>
             </div>
             <div class="number-of-member">
@@ -87,7 +87,7 @@
     </div>
     <div class="row container mb10px">
         <div class="row-content flex-row show-products flex-end">
-            <div class="show-products-item">
+            <div id="show-product-box" class="show-products-item">
                 @foreach($categories as $category)
                     <div class="title">
                         <h3 id="{{ $category->id }}">{{ $category->name }}</h3>
@@ -114,6 +114,61 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
+            <div id="show-information-box" style="display:none;" class="show-products-item">
+
+                    <div class="title">
+                        <h2><i class="fa fa-map-marker" aria-hidden="true"></i>آدرس</h2>
+                    </div>
+                    <div class="info-content">
+                        <h3>
+                            {{ $store->address }}
+                        </h3>
+                    </div>
+                    <hr>
+
+                    <div class="title">
+                        <h2><i class="fa fa-clock-o" aria-hidden="true"></i>ساعت کاری</h2>
+                    </div>
+                    <div class="info-content">
+                        <h3>
+                            {{ $store->working_hours }}
+                        </h3>
+                    </div>
+                    <hr>
+
+                    <div class="title">
+                        <h2><i class="fa fa-circle-o-notch" aria-hidden="true"></i>مناطق تحت پوشش</h2>
+                    </div>
+                    <div class="info-content">
+                            
+                    </div>
+                    <hr>
+
+                    <div class="title">
+                        <h2><i class="fa fa-check-circle-o" aria-hidden="true"></i>امکانات</h2>
+                    </div>
+                    <div class="info-content">
+                        <div class="features">
+                            <div class="feature-item">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                امکانات
+                            </div>
+                            <div class="feature-item">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                امکانات
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="title">
+                        <h2><i class="fa fa-map-marker" aria-hidden="true"></i>آدرس روی نقشه</h2>
+                    </div>
+                    <div class="info-content">
+                        
+                    </div>
+                    <hr>
             </div>
             <div class="cart">
                 <div class="header">
@@ -239,14 +294,26 @@
             switch(menu_id) {
                 case 'store-menu':
                     // alert(menu_id);
+                    $('#placement').css('display','none');
+                    $('#categories').css('display','flex');
+                    $('#show-product-box').css('display','flex');
+                    $('#show-information-box').css('display','none');
                     break;
                 case 'store-info':
                     // alert(menu_id);
+                    $('#categories').css('display','none');
                     $('#placement h3').html($(this).html());
+                    $('#placement').css('display','flex');
+                    $('#show-product-box').css('display','none');
+                    $('#show-information-box').css('display','flex');
                     break;
                 case 'customer-comments':
                     // alert(menu_id);
+                    $('#categories').css('display','none');
                     $('#placement h3').html($(this).html());
+                    $('#placement').css('display','flex');
+                    $('#show-product-box').css('display','none');
+                    $('#show-information-box').css('display','none');
                     break;
                 default:
                     //code block
