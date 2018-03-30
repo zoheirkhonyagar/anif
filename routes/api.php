@@ -32,6 +32,8 @@ Route::group(['prefix'=> 'v1', 'namespace'=> 'Api\v1'], function () {
     $this->post('addWSRequest', 'WSRequestController@insertTo');
     $this->post('getRegions', 'RegionController@getAll');
     $this->post('storeSearch', 'StoreController@search');
+    $this->post('getComments', 'CommentController@getComment');
+    $this->post('calcPercentagePoints', 'StorePointController@calcPercentagePoints');
 
 
     Route::middleware('auth:api')->group(function ()
@@ -39,6 +41,9 @@ Route::group(['prefix'=> 'v1', 'namespace'=> 'Api\v1'], function () {
         Route::post('exitCRM', 'CustomerController@exitCustomer');
         Route::post('joinToCRM', 'CustomerController@storeCustomer');
         Route::post('getCustomer', 'CustomerController@getCustomer');
+        Route::post('getUserPointToStore', 'StorePointController@getUserPoint');
+        Route::post('savePointComment', 'StorePointController@storePointAndCommentToStore');
+        Route::post('saveComment', 'StorePointController@updatePointAndComment');
 
         Route::post('user', function ()
         {

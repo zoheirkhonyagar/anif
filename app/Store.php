@@ -30,7 +30,17 @@ class Store extends Model
 
     public function region()
     {
-        return $this->hasMany(StoreR::class);
+        return $this->hasMany(Region::class);
+    }
+
+    public function point()
+    {
+        return $this->hasMany(StorePoint::class, 'point_id', 'id');
+    }
+
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
     }
 
     /**
@@ -41,9 +51,8 @@ class Store extends Model
     public function sluggable()
     {
         return [
-            'slug' => [
+            'username' => [
                 'source' => 'username',
-
             ]
         ];
     }
@@ -52,4 +61,5 @@ class Store extends Model
     {
         return 'username';
     }
+
 }
