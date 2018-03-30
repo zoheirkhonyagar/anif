@@ -22,7 +22,7 @@ class CommentController extends apiController
         $commentUser = Comment::join('users', function ($join) use ($storeId) {
             $join->on('comments.user_id', '=', 'users.id')
                 ->where('comments.store_id', '=', $storeId);
-        })->get();
+        })->select('comments.*', 'users.first_name', 'users.last_name')->get();
 
         $arrayComment = [];
         foreach ($commentUser as $item) {
