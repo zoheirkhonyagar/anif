@@ -117,7 +117,7 @@ class StorePointController extends apiController
     public function calcPercentagePoints(Request $request)
     {
         $validData = $this->validate($request, [
-                'store_id' => 'required','exists:stores,id',
+                'store_id' => 'required','exists:stores,id'
             ]
         );
         $countAllPoint = DB::table('store_points')->where('store_id', $validData['store_id'])->count();
@@ -125,10 +125,14 @@ class StorePointController extends apiController
         $countMedium = DB::table('store_points')->where('store_id', $validData['store_id'])->whereBetween('point', [2.4, 3.7])->count();
         $countWeak = DB::table('store_points')->where('store_id', $validData['store_id'])->whereBetween('point', [1, 2.39])->count();
 
-
-        $percentG = $countGood / $countAllPoint * 100 ;
-        $percentM = $countMedium / $countAllPoint * 100 ;
-        $percentW = $countWeak / $countAllPoint * 100 ;
+        $percentG = 0 ;
+        $percentM = 0 ;
+        $percentW = 0 ;
+        if($countAllPoint != 0) {
+            $percentG = $countGood / $countAllPoint * 100;
+            $percentM = $countMedium / $countAllPoint * 100;
+            $percentW = $countWeak / $countAllPoint * 100;
+        }
 
         $arrayPercent = [
             'count_points' => $countAllPoint,
