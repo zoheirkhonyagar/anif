@@ -8,4 +8,11 @@ class Interfaces extends Model
 {
     protected $guarded = [];
     protected $table = 'interfaces';
+
+
+
+    public function version()
+    {
+        return $this->hasMany(Version::class);
+    }
 }

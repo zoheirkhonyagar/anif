@@ -34,6 +34,7 @@ Route::group(['prefix'=> 'v1', 'namespace'=> 'Api\v1'], function () {
     $this->post('storeSearch', 'StoreController@search');
     $this->post('getComments', 'CommentController@getComment');
     $this->post('calcPercentagePoints', 'StorePointController@calcPercentagePoints');
+    $this->post('getVersion', 'VersionController@get');
 
 
     Route::middleware('auth:api')->group(function ()
