@@ -18,6 +18,7 @@ class StoreController extends Controller
 
     public function index()
     {
+		//return auth()->user();
         $sortedWithOff = $this->getOfferStores();
         $sortedWithOff = $sortedWithOff['stores'];
 
@@ -78,32 +79,65 @@ class StoreController extends Controller
         $store['images'] = $tmpSlider;
         return $store;
     }
-    public function getOfferStores($perPage = 9, $currentPage = 1, $decodeImages = true, $cityId = 1, $region_id = 1)
+    public function getOfferStores($perPage = 9, $currentPage = 1, $decodeImages = true, $cityId = 1, $region_id = 0, $sortBy = 'sort_weight', $sortType = 'desc', $filterType = 'no' ,$storeCategory = 0)
     {
 
         Paginator::currentPageResolver(function () use ($currentPage) {
             return $currentPage;
         });
 
+        if($region_id == 0)
+        {
+            $storesWithPaginate = Store::whereRaw("city_id = $cityId");
+            if($storeCategory != 0)
+                $storesWithPaginate = $storesWithPaginate->where("s_category_id" ,'=', $storeCategory);
 
-        $storesWithPaginate = Store::whereRaw("city_id = $cityId")->paginate($perPage);
+            if($filterType == 'best')
+                $storesWithPaginate = $storesWithPaginate->where("rank", '>=', 4);
+            $storesWithPaginate = $storesWithPaginate->paginate($perPage);
+
+        }
+        else
+        {
+            $storesWithPaginate = Store::join('store_regions', function ($join) use ($region_id) {
+                $join->on('stores.id', '=', 'store_regions.store_id')
+                    ->where('store_regions.region_id', '=', $region_id);
+            });
+
+            if($storeCategory != 0)
+                $storesWithPaginate = $storesWithPaginate->where("s_category_id", '=', $storeCategory);
+            if($filterType == 'best')
+                $storesWithPaginate = $storesWithPaginate->where("rank", '>=', 4);
+            $storesWithPaginate = $storesWithPaginate->paginate($perPage);
+        }
+
         $temp_store = [];
         $stores = $storesWithPaginate->items();
+
         foreach ($stores as $store) {
+            if($region_id != 0)
+                $store['id'] = $store['store_id'];
             $tmp = DB::table('products')->select(DB::raw('max(off) as maxOff'))->
                             where('store_id', $store['id'])->first();
-            if ($tmp->maxOff) {
-                $store['max_off'] = $tmp->maxOff;
 
-                if($decodeImages)//برای دیکد نکردن از سمت وب سرویس
-                    $store = $this->parseStoreImage($store);
+            $store['max_off'] = $tmp->maxOff;
+            if($decodeImages)//برای دیکد نکردن از سمت وب سرویس
+                $store = $this->parseStoreImage($store);
+            if($filterType == 'best' || $filterType == 'no')
                 $temp_store [] = $store;
+            else if($filterType == 'offer')
+            {
+                if($store['max_off'] > 0)
+                    $temp_store [] = $store;
             }
         }
 
         $temp_store = collect($temp_store);
 
-        $sortedWithOff = $temp_store->sortByDesc('max_off')->values()->all();
+        if($sortType == 'desc')
+            $sortedWithOff = $temp_store->sortByDesc($sortBy)->values()->all();
+        else
+            $sortedWithOff = $temp_store->sortBy($sortBy)->values()->all();
 
         $sortedWithOff = [
             'stores' => $sortedWithOff,

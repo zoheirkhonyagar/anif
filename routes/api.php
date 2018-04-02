@@ -20,8 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix'=> 'v1', 'namespace'=> 'Api\v1'], function () {
 
     $this->get('getOfferStores', 'StoreController@getOfferStores');
+    $this->post('getStores', 'StoreController@getStores');
     $this->get('getBestStores', 'StoreController@getBestStores');
-    $this->get('getStore', 'StoreController@show');
+    $this->post('getStore', 'StoreController@show');
     $this->post('getStoreCategory', 'StoreController@showAllCategory');
     $this->post('getProductsOfCategory', 'ProductCategoryController@showAllProduct');
     $this->post('login', 'UserController@login');
@@ -30,12 +31,19 @@ Route::group(['prefix'=> 'v1', 'namespace'=> 'Api\v1'], function () {
     $this->post('getCities', 'CityController@getAllCities');
     $this->post('addWSRequest', 'WSRequestController@insertTo');
     $this->post('getRegions', 'RegionController@getAll');
+    $this->post('storeSearch', 'StoreController@search');
+    $this->post('getComments', 'CommentController@getComment');
+    $this->post('calcPercentagePoints', 'StorePointController@calcPercentagePoints');
 
 
     Route::middleware('auth:api')->group(function ()
     {
+        Route::post('exitCRM', 'CustomerController@exitCustomer');
         Route::post('joinToCRM', 'CustomerController@storeCustomer');
         Route::post('getCustomer', 'CustomerController@getCustomer');
+        Route::post('getUserPointToStore', 'StorePointController@getUserPoint');
+        Route::post('savePointComment', 'StorePointController@storePointAndCommentToStore');
+        Route::post('saveComment', 'StorePointController@updatePointAndComment');
 
         Route::post('user', function ()
         {

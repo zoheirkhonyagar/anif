@@ -17,20 +17,18 @@ class CustomerController extends apiController
     {
         $validData = $this->validate($request, [
                 'store_id' => 'required|unique:customers,store_id,NULL,id,user_id,'.auth()->user()->id,
-
             ]
         );
-
-        $storeM = Store::find($request['store_id']);
 //        $storeM['member_count'] = $storeM['member_count'] +1 ; //تعداد اعضای مجموعه را افزایش می دهم
 //        $storeM->save();
 //        dd($storeM) ;die;
-
         $storeM = Store::find($request['store_id']);
         $storeM->increment('member_count');
 
         //اطلاعات این کاربر در مشتری های رستوران ذخیره می کنم
-        auth()->user()->Customer()->create($validData);
+        $customers = auth()->user()->Customer()->create($validData);
+        $customers['TM'] = $storeM['crm_TM'] ;
+        $customers->save();
 
         return $this->RespondCreated('شما به باشگاه مشتریان این مجموعه پیوستید.');
     }
@@ -46,10 +44,35 @@ class CustomerController extends apiController
         $customerM = DB::table('customers')->where('store_id', $validData['store_id'])
                                         ->where('user_id', $userId);
 
-//        $customerM = auth()->user()->Customer()->get();
 
         if($customerM->count() == 0)
             return $this->respondBadRequest('Bad Request: This user is not registered to the customer club.','شما در باشگاه مشتریان مجموعه عضو نمی باشید.');
         return $this->respondTrue($customerM->get());
     }
+
+    public function exitCustomer(Request $request)
+    {
+        $validData = $this->validate($request, [
+                'store_id' => 'required',
+            ]
+        );
+        $userId = auth()->user()->id;
+        $customerM = Customer::where('store_id', $validData['store_id'])
+            ->where('user_id', $userId);
+
+        $tmp = $customerM->first();
+        if($customerM->count() == 0 || $tmp->is_active == 0)
+            return $this->respondBadRequest('Bad Request: This user is not registered to the customer club.','شما در باشگاه مشتریان مجموعه عضو نمی باشید.');
+        if($tmp->all_TM != 0 || $tmp->TM != 0)
+            return $this->respondBadRequest('Bad Request: Not Allowed', 'به دلیل داشتن تی ام در این مجموعه این قابلیت در دسترس نیست');
+//            $customerM->update(['is_active' => 0]);
+        else
+            $customerM->delete() ;
+
+        $storeM = Store::find($validData['store_id']);
+        $storeM->decrement('member_count');
+        return $this->RespondDeleted("شما از باشگاه مشتریان این مجموعه خارج شدید.");
+    }
+
+    
 }

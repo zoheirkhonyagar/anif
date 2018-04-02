@@ -37,4 +37,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Customer::class);
     }
+
+    public function point()
+    {
+        return $this->hasMany(StorePoint::class, 'user_id', 'id');
+    }
+
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

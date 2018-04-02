@@ -28,6 +28,21 @@ class Store extends Model
         return $this->hasMany(Customer::class);
     }
 
+    public function region()
+    {
+        return $this->hasMany(Region::class);
+    }
+
+    public function point()
+    {
+        return $this->hasMany(StorePoint::class, 'point_id', 'id');
+    }
+
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     /**
      * Return the sluggable configuration array for this model.
      *
@@ -46,4 +61,5 @@ class Store extends Model
     {
         return 'username';
     }
+
 }
