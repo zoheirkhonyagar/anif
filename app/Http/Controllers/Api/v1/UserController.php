@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Requests\ApiLogin;
 use App\Http\Requests\SendVerifyCode;
+use App\Http\Requests\v1\ApiEditUserInfo;
 use App\Http\Resources\v1\User as UserResource;
 use App\TmpRegister;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Morilog\Jalali\jDateTime;
 use phpDocumentor\Reflection\Types\Integer;
 
 
@@ -78,7 +81,6 @@ class UserController extends apiController
         return $this->respondTrue($user);
     }
 
-
     public function sendVerifyCode(SendVerifyCode $request)
     {
         $validData = $this->validate($request, [
@@ -120,6 +122,54 @@ class UserController extends apiController
             ]);
         }
 
+    }
+
+    public function get()
+    {
+        $userM = auth()->user();
+        $userM = new UserResource($userM);
+        return $this->respondTrue($userM);
+    }
+
+    public function editInfo(ApiEditUserInfo $request)
+    {
+        $validData = $this->validate($request, [
+            'first_name' => 'string|max:255',
+            'last_name' => 'string|max:255',
+            'user_name' => 'string|max:25',
+            'email' => 'string|email|max:255|unique:users',
+            'password' => 'string|min:6', //old password set
+
+        ]);
+        $userM = auth()->user() ;
+
+        if(isset($request['birthday']))
+        {
+            $birthday = explode('/', $request['birthday']);
+            $GregorianB = jDateTime::toGregorianDate($birthday[0], $birthday[1], $birthday[2]);
+            $validData['birthday'] = $GregorianB ;
+        }
+
+        if(isset($request['TM']) || isset($request['all_TM'])
+            || isset($request['status']) || isset($request['anif_code']) || isset($request['type']))
+        {
+            $message = 'دسترسی غیر مجاز';
+            return $this->respondValidationError('Not Allowed.', $message);
+        }
+        if(isset($validData['password']) && isset($request['old_password']))
+        {
+
+            if(! Hash::check($request['old_password'], $userM->password))
+            {
+                $message = 'رمز عبور اشتیاه می باشد.';
+                return $this->respondValidationError('The server understood the request but refuses to authorize it.', $message);
+            }
+        }
+
+        $userM->update($validData);
+
+        $user = new UserResource($userM);
+        return $this->respondTrue($user);
     }
 
 
