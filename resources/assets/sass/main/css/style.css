@@ -914,13 +914,17 @@ cursor: pointer;
     font-size: 1.1em;
 }
 
-.MIN span:hover,.MIN span:active,.MIN span:focus{
+.MIN span:hover,.MIN span:active,.MIN span:focus , .MIN-hover{
     color: #fabc05;
     cursor: pointer;
+    border-bottom: 2px solid;
+    line-height: 5px;
 }
+
 .MIN span{
     margin-right: 20px;
     margin-left: 20px;
+    line-height: 5px;
 }
 .Points {
     display: flex;
@@ -1059,6 +1063,24 @@ cursor: pointer;
     font-size: 1.1em;
 }
 
+#placement{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 45px;
+    background-color: #f5f5f5;
+    border: 1px solid rgba(0,0,0,0.1);
+    -ms-flex-preferred-size: 70%;
+    flex-basis: 70%;
+    font-size: 1.1em;
+    overflow: hidden;
+    position: relative;
+    justify-content: center;
+}
+
 .number-of-member  .member span{
     margin-left: 15px;
 
@@ -1070,11 +1092,11 @@ cursor: pointer;
     background-color: #fabc05;
     border: none;
     border-radius: 5px;
+    color: #fff;
 }
 
-.number-of-member .btn-btn--yellow a{
-    color: #fff;
-    border: 1px;
+.number-of-member .btn-btn--yellow:hover{
+    cursor: pointer;
 }
 
 /*--------------- row-content-show-products ----------------*/
@@ -1098,6 +1120,39 @@ cursor: pointer;
 
 .show-products-item .title{
     display: flex;
+}
+
+#show-information-box .title{
+    justify-content: center;
+}
+
+#show-information-box .title h2 i {
+    margin-left: 10px;
+}
+
+#show-information-box .info-content{
+    display: flex;
+    justify-content: center;
+}
+
+#show-information-box .info-content .features{
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 60%;
+}
+
+#show-information-box .info-content .features .feature-item{
+    width: calc(50% - 40px);
+}
+
+#show-information-box .info-content .features .feature-item i{
+    color:#04974b;
+}
+
+#show-information-box .info-content h3{
+    text-align: center;
 }
 
 .show-products-item .title h3{
@@ -1220,4 +1275,8 @@ cursor: pointer;
     background-color: #04974b;
     border: none;
     border-radius: 5px;
+}
+
+.flex-end{
+    justify-content: flex-end !important;
 }

@@ -98,3 +98,4 @@ npm-debug.log
 yarn-error.log
 .env
 # End of https://www.gitignore.io/api/laravel,phpstorm
+/.vscode

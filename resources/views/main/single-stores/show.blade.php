@@ -36,8 +36,8 @@
     </header>
 @endsection
 @section('content')
-<div class="row container mb10px">
-        <div class="row-content flex-row MIC_P">
+<div class="row container mb10px ">
+        <div class="row-content flex-row MIC_P flex-end">
             <div class="MIN">
                 <span id="store-menu">منوی رستوران</span>
                 <span id="store-info">اطلاعات رستوران</span>
@@ -56,8 +56,8 @@
         </div>
     </div>
     <div class="row container mb10px">
-        <div class="row-content flex-row category-container">
-            <div class="category">
+        <div class="row-content flex-row category-container flex-end">
+            <div id="categories" class="category">
                 <div class="category-section__nav">
                       <div class="category-section__nav-btn">
                           <div class="owl-carousel owl-theme sub-menu">
@@ -68,20 +68,26 @@
                       </div>
                 </div>
             </div>
+            <div id="placement" style="display:none;">
+                <h3></h3>
+            </div>
             <div class="number-of-member">
                 <div class="member">
                     <span>تعداد اعضا</span>
-                    <span>۴۵۶</span>
+                    <span>{{ $store->member_count }}</span>
                 </div>
-                <button class="btn-btn--yellow">
-                    <a href="#">عضویت در باشگاه مشتریان</a>
-                </button>
+                <form action="{{ route('customer.joinToCrm' , [ 'store' => $store ]) }}" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <button class="btn-btn--yellow">
+                        عضویت در باشگاه مشتریان
+                    </button>
+                </form>
             </div>
         </div>
     </div>
     <div class="row container mb10px">
-        <div class="row-content flex-row show-products">
-            <div class="show-products-item">
+        <div class="row-content flex-row show-products flex-end">
+            <div id="show-product-box" class="show-products-item">
                 @foreach($categories as $category)
                     <div class="title">
                         <h3 id="{{ $category->id }}">{{ $category->name }}</h3>
@@ -108,6 +114,61 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
+            <div id="show-information-box" style="display:none;" class="show-products-item">
+
+                    <div class="title">
+                        <h2><i class="fa fa-map-marker" aria-hidden="true"></i>آدرس</h2>
+                    </div>
+                    <div class="info-content">
+                        <h3>
+                            {{ $store->address }}
+                        </h3>
+                    </div>
+                    <hr>
+
+                    <div class="title">
+                        <h2><i class="fa fa-clock-o" aria-hidden="true"></i>ساعت کاری</h2>
+                    </div>
+                    <div class="info-content">
+                        <h3>
+                            {{ $store->working_hours }}
+                        </h3>
+                    </div>
+                    <hr>
+
+                    <div class="title">
+                        <h2><i class="fa fa-circle-o-notch" aria-hidden="true"></i>مناطق تحت پوشش</h2>
+                    </div>
+                    <div class="info-content">
+                            
+                    </div>
+                    <hr>
+
+                    <div class="title">
+                        <h2><i class="fa fa-check-circle-o" aria-hidden="true"></i>امکانات</h2>
+                    </div>
+                    <div class="info-content">
+                        <div class="features">
+                            <div class="feature-item">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                امکانات
+                            </div>
+                            <div class="feature-item">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                امکانات
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="title">
+                        <h2><i class="fa fa-map-marker" aria-hidden="true"></i>آدرس روی نقشه</h2>
+                    </div>
+                    <div class="info-content">
+                        
+                    </div>
+                    <hr>
             </div>
             <div class="cart">
                 <div class="header">
@@ -222,6 +283,42 @@
             bestSeller.trigger('prev.owl.carousel');
         });        
 
+        $('.MIN span').click(function(e){
+            e.preventDefault();
+            $(this).parents().find('.MIN span').each(function(){
+                $(this).removeClass('MIN-hover');
+            });
+            $(this).addClass('MIN-hover');
+            // alert($(this).attr('id'));
+            var menu_id = $(this).attr('id')
+            switch(menu_id) {
+                case 'store-menu':
+                    // alert(menu_id);
+                    $('#placement').css('display','none');
+                    $('#categories').css('display','flex');
+                    $('#show-product-box').css('display','flex');
+                    $('#show-information-box').css('display','none');
+                    break;
+                case 'store-info':
+                    // alert(menu_id);
+                    $('#categories').css('display','none');
+                    $('#placement h3').html($(this).html());
+                    $('#placement').css('display','flex');
+                    $('#show-product-box').css('display','none');
+                    $('#show-information-box').css('display','flex');
+                    break;
+                case 'customer-comments':
+                    // alert(menu_id);
+                    $('#categories').css('display','none');
+                    $('#placement h3').html($(this).html());
+                    $('#placement').css('display','flex');
+                    $('#show-product-box').css('display','none');
+                    $('#show-information-box').css('display','none');
+                    break;
+                default:
+                    //code block
+            }
+        });
 
     </script>
 @endsection
