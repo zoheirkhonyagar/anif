@@ -33,6 +33,7 @@ class ApiEditUserInfo extends FormRequest
             'user_name' => 'string|max:25',
             'email' => 'string|email|max:255|unique:users',
             'password' => 'string|min:6', //old password set
+            'TM_password' => 'string|min:4|max:6', //old password set
         ];
     }
 

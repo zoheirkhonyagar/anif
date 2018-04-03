@@ -27,6 +27,10 @@ class CreateVersionsTable extends Migration
             $table->foreign('interface_id')->references('id')->on('interfaces');
             $table->timestamps();
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('TM_password')->after('all_TM')->default(bcrypt('999999'));
+        });
     }
 
     /**

@@ -139,6 +139,7 @@ class UserController extends apiController
             'user_name' => 'string|max:25',
             'email' => 'string|email|max:255|unique:users',
             'password' => 'string|min:6', //old password set
+            'TM_password' => 'string|min:4|max:6', //old password set
 
         ]);
         $userM = auth()->user() ;
@@ -164,6 +165,19 @@ class UserController extends apiController
                 $message = 'رمز عبور اشتیاه می باشد.';
                 return $this->respondValidationError('The server understood the request but refuses to authorize it.', $message);
             }
+            else
+                $validData['password'] = bcrypt($validData['password']);
+        }
+        else if(isset($validData['TM_password']) && isset($request['old_TM_password']))
+        {
+
+            if(! Hash::check($request['old_TM_password'], $userM->TM_password))
+            {
+                $message = 'رمز استفاده از تی ام ها اشتباه می باشد';
+                return $this->respondValidationError('The server understood the request but refuses to authorize it.', $message);
+            }
+            else
+                $validData['TM_password'] = bcrypt($validData['TM_password']);
         }
 
         $userM->update($validData);
