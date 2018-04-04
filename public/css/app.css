@@ -387,6 +387,9 @@ header .header-bg .header-content .search-box .choose-boxes .choose{
         -ms-flex-direction: row-reverse;
             flex-direction: row-reverse;
     width: 100%;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
 }
 
 header .header-bg .header-content .search-box .choose-boxes .choose .choose-item{
@@ -398,8 +401,8 @@ header .header-bg .header-content .search-box .choose-boxes .choose .choose-item
         -ms-flex-direction: row-reverse;
             flex-direction: row-reverse;
     position: relative;
-    -ms-flex-preferred-size: 50%;
-        flex-basis: 50%;
+    -ms-flex-preferred-size: 48%;
+        flex-basis: 48%;
 }
 
 header .header-bg .header-content .search-box .choose-boxes .choose-item select{

@@ -59,3 +59,5 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 Route::post('sendVerifyCode' , 'UserController@sendVerifyCode')->name('sendVerifyCode');
 Route::post('checkVerifyCode' , 'UserController@checkVerifyCode')->name('checkVerifyCode');
 Route::post('register', 'UserController@register')->name('form-register');
+
+Route::post('getCityRegions' , 'StoreController@getCityRegions')->name('getCityRegions');

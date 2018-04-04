@@ -321,13 +321,14 @@ header .header-bg .header-content .search-box .choose-boxes .choose{
     display: flex;
     flex-direction: row-reverse;
     width: 100%;
+    justify-content: space-between;
 }
 
 header .header-bg .header-content .search-box .choose-boxes .choose .choose-item{
     display: flex;
     flex-direction: row-reverse;
     position: relative;
-    flex-basis: 50%;
+    flex-basis: 48%;
 }
 
 header .header-bg .header-content .search-box .choose-boxes .choose-item select{

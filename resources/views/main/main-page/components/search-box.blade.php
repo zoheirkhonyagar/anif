@@ -13,10 +13,24 @@
                     <div class="choose">
                         <div class="choose-item">
                             <i class="fa fa-2x fa-caret-down choose-arrow" aria-hidden="true"></i>
-                            <select name="city" id="choose-city">
-                                <option value="zahedan">زاهدان</option>
-                                <option value="shiraz">شیراز</option>
-                            </select>
+                            <form method="POST">
+                                <select name="region" id="choose-region">
+                                    @foreach($regions as $region)
+                                        <option value="{{$region->id}}">{{ $region->name }}</option>
+                                    @endforeach
+                                </select>
+                            <form>
+                            <i class="fa fa-map-marker fa-2x anif-map-marker" aria-hidden="true"></i>
+                        </div>
+                        <div class="choose-item">
+                            <i class="fa fa-2x fa-caret-down choose-arrow" aria-hidden="true"></i>
+                            <form method="POST">
+                                <select name="city" id="choose-city">
+                                    @foreach($cities as $city)
+                                        <option value="{{$city->id}}">{{ $city->fa_name }}</option>
+                                    @endforeach
+                                </select>
+                            </form>
                             <i class="fa fa-map-marker fa-2x anif-map-marker" aria-hidden="true"></i>
                         </div>
                     </div>
