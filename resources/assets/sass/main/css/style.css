@@ -331,6 +331,11 @@ header .header-bg .header-content .search-box .choose-boxes .choose .choose-item
     flex-basis: 48%;
 }
 
+header .header-bg .header-content .search-box .choose-boxes .choose .choose-item form{
+    display: flex;
+    width: 100%;
+}
+
 header .header-bg .header-content .search-box .choose-boxes .choose-item select{
     width: 100%;
     border: 2px solid #fabc05;
