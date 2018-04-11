@@ -111,6 +111,12 @@ class apiController extends Controller
         return $this->respondWithError($description, $message);
     }
 
+    public function respondSuccessMessage($description= 'The request has succeeded.', $message = 'no message set')
+    {
+        $this->setStatusCode(200);
+        return $this->respondWithError($description, $message);
+    }
+
     protected function getPaginationInfo($data)
     {
         return [

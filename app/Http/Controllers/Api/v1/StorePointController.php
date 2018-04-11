@@ -28,13 +28,12 @@ class StorePointController extends apiController
 
 
         if($userPoint->count() == 0)
-            return $this->respondBadRequest('Bad Request: This user is not point to this store.','این کاربر به این مجموعه امتیازی نداده است');
+            return $this->respondSuccessMessage('This user is not point to this store.','این کاربر به این مجموعه امتیازی نداده است');
 
         $storePoint = new StoreResourcePoint($userPoint->first());
 
         return $this->respondTrue($storePoint);
     }
-
 
     public function storePointAndCommentToStore(ApiUserIdUniqueInStorePoint $request)
     {
@@ -69,7 +68,6 @@ class StorePointController extends apiController
 
         return $this->RespondCreated('ممنون، نظر شما بعد از تایید مدیران ذخیره خواهد شد');
     }
-
 
     public function updatePointAndComment(ApiUpdatePointAndComment $request)
     {
@@ -120,10 +118,12 @@ class StorePointController extends apiController
                 'store_id' => 'required','exists:stores,id'
             ]
         );
+
         $countAllPoint = DB::table('store_points')->where('store_id', $validData['store_id'])->count();
         $countGood = DB::table('store_points')->where('store_id', $validData['store_id'])->where('point', '>', 3.7)->count();
         $countMedium = DB::table('store_points')->where('store_id', $validData['store_id'])->whereBetween('point', [2.4, 3.7])->count();
         $countWeak = DB::table('store_points')->where('store_id', $validData['store_id'])->whereBetween('point', [1, 2.39])->count();
+        $rank = DB::table('stores')->where('id', $validData['store_id'])->select('rank')->first();
 
         $percentG = 0 ;
         $percentM = 0 ;
@@ -135,6 +135,7 @@ class StorePointController extends apiController
         }
 
         $arrayPercent = [
+            'rank' => $rank->rank,
             'count_points' => $countAllPoint,
             'good' => $percentG,
             'medium' => $percentM,
