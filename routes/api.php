@@ -42,11 +42,13 @@ Route::group(['prefix'=> 'v1', 'namespace'=> 'Api\v1'], function () {
         Route::post('exitCRM', 'CustomerController@exitCustomer');
         Route::post('joinToCRM', 'CustomerController@storeCustomer');
         Route::post('getCustomer', 'CustomerController@getCustomer');
+        Route::post('getAllUserTM', 'CustomerController@getAllUserTM');
         Route::post('getUserPointToStore', 'StorePointController@getUserPoint');
         Route::post('savePointComment', 'StorePointController@storePointAndCommentToStore');
         Route::post('saveComment', 'StorePointController@updatePointAndComment');
         Route::post('editUserInfo', 'UserController@editInfo');
         Route::post('getUser', 'UserController@get');
+        Route::post('chargingTM', 'TMController@charging');
 
 
     });

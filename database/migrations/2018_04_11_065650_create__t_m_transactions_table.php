@@ -22,7 +22,7 @@ class CreateTMTransactionsTable extends Migration
 
         Schema::create('TM_transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('store_id');
+            $table->unsignedInteger('store_id')->nullable();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('store_id')->references('id')->on('stores');
@@ -41,9 +41,21 @@ class CreateTMTransactionsTable extends Migration
             $table->string('code', 20);
             $table->unique('code');
             $table->unsignedInteger('amount') ;
+            $table->unsignedInteger('store_id')->nullable();
+            $table->foreign('store_id')->references('id')->on('stores');
             $table->boolean('is_active')->defualt(1);
             $table->unsignedInteger('count_usable')->defualt(1);
             $table->string('description',150)->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('user_tm_code', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('code_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('code_id')->references('id')->on('tm_codes');
+            $table->unique(['user_id', 'code_id']);
             $table->timestamps();
         });
     }
@@ -57,6 +69,7 @@ class CreateTMTransactionsTable extends Migration
     {
         Schema::dropIfExists('TM_transactions');
         Schema::dropIfExists('methods_tran_TM');
+        Schema::dropIfExists('user_tm_code');
         Schema::dropIfExists('tm_codes');
     }
 }

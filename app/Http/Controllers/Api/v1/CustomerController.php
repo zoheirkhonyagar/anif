@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Customer;
 use App\Http\Requests\ApiUserAndStoreUnique;
+use App\Http\Resources\v1\Customer as CustomerResource;
 use App\Store;
 use DB;
 use Illuminate\Http\Request;
@@ -48,6 +49,23 @@ class CustomerController extends apiController
         if($customerM->count() == 0)
             return $this->respondBadRequest('Bad Request: This user is not registered to the customer club.','شما در باشگاه مشتریان مجموعه عضو نمی باشید.');
         return $this->respondTrue($customerM->get());
+    }
+
+    public function getAllUserTM(Request $request)
+    {
+
+
+        $userId = auth()->user()->id;
+        $customerM = DB::table('customers')->where('user_id', $userId);
+
+
+        if($customerM->count() == 0)
+            return $this->respondSuccessMessage('This user is not registered to the customer club.','این کاربر در هیچ مجموعه ای عضو نمی باشد');
+        $customerArrayM = [];
+        $customerM = $customerM->get();
+        foreach ($customerM as $item)
+            $customerArrayM[] = new CustomerResource($item);
+        return $this->respondTrue($customerArrayM);
     }
 
     public function exitCustomer(Request $request)
