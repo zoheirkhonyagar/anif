@@ -49,6 +49,7 @@ Route::group(['prefix'=> 'v1', 'namespace'=> 'Api\v1'], function () {
         Route::post('editUserInfo', 'UserController@editInfo');
         Route::post('getUser', 'UserController@get');
         Route::post('chargingTM', 'TMController@charging');
+        Route::post('getRegentInfo', 'TMController@getRegentCode');
 
 
     });

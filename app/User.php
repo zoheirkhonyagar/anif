@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function regent()
+    {
+        return $this->hasOne(Regent::class, 'user_id', 'id');
+    }
 }

@@ -15,6 +15,8 @@ class StorePointController extends apiController
 {
 
     protected $factor = 2 ;
+    //اول از این متود باید استفاده بشه
+    //بعد بستگی به نوع ریسپانس داره
     public function getUserPoint(Request $request)
     {
         $validData = $this->validate($request, [
@@ -35,6 +37,7 @@ class StorePointController extends apiController
         return $this->respondTrue($storePoint);
     }
 
+    // اگر کاربر امتیازی تا الان نداده باشه بعد از این استفاده میشه
     public function storePointAndCommentToStore(ApiUserIdUniqueInStorePoint $request)
     {
         $validData = $this->validate($request, [
@@ -69,6 +72,7 @@ class StorePointController extends apiController
         return $this->RespondCreated('ممنون، نظر شما بعد از تایید مدیران ذخیره خواهد شد');
     }
 
+    //اگه امتیاز داده بشه از این استفاده میشه
     public function updatePointAndComment(ApiUpdatePointAndComment $request)
     {
         $validData = $this->validate($request, [

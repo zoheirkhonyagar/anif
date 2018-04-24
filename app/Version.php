@@ -9,7 +9,7 @@ class Version extends Model
     protected $guarded = [];
 
 
-    public function interface()
+    public function interfaceM()
     {
         return $this->belongsTo(Version::class);
     }

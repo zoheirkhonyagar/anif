@@ -56,6 +56,17 @@ class apiController extends Controller
         ]);
     }
 
+
+    public function respondWithMessage($description ,$message = 'no message set')// با استفاده از متود به راحتی مقدار کد وضعیت رو در قسمت دیتا هم قرار می دهیم
+    {
+        return $this->respond([
+            'ok'=> true,
+            'error_code'=>$this->getStatusCode(),
+            'description'=> $description,
+            'message'=> $message
+        ]);
+    }
+
     public function respondTrue($result)
     {
         return $this->respond([
@@ -70,12 +81,10 @@ class apiController extends Controller
 
     //متدهایی برای ارورهای معروفی که خیلی بیشتر اتفاق خواهند افتاد
 
-    public function RespondCreated($message, $statusCode = 201)
+    public function RespondCreated($message, $statusCode = 201, $description = 'info created.')
     {
         $this->setStatusCode($statusCode);
-        return $this->respondTrue([
-            'message' => $message
-        ]);
+        return $this->respondWithMessage($description, $message);
 
     }
 
