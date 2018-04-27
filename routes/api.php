@@ -35,6 +35,7 @@ Route::group(['prefix'=> 'v1', 'namespace'=> 'Api\v1'], function () {
     $this->post('getComments', 'CommentController@getComment');
     $this->post('calcPercentagePoints', 'StorePointController@calcPercentagePoints');
     $this->post('getVersion', 'VersionController@get');
+    $this->post('loginAdmin', 'UserController@loginAdmin');
 
 
     Route::middleware('auth:api')->group(function ()
@@ -50,7 +51,8 @@ Route::group(['prefix'=> 'v1', 'namespace'=> 'Api\v1'], function () {
         Route::post('getUser', 'UserController@get');
         Route::post('chargingTM', 'TMController@charging');
         Route::post('getRegentInfo', 'TMController@getRegentCode');
-
+        Route::post('decreaseTMWA', 'TMController@decreaseTMWAdmin');
+        Route::post('getCustomerA', 'UserController@getUserWAdmin');
 
     });
 

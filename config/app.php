@@ -165,7 +165,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Morilog\Jalali\JalaliServiceProvider::class,
-
+        Kavenegar\Laravel\ServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -231,6 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'jDate' => Morilog\Jalali\Facades\jDate::class,
+        'Kavenegar' => Kavenegar\Laravel\Facade::class,
 
     ],
 

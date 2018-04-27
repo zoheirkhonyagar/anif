@@ -9,9 +9,13 @@ use App\Regent;
 use App\TMCode;
 use App\TMTransaction;
 use App\UserTMCode;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Kavenegar\KavenegarApi;
+use Morilog\Jalali\jDateTime;
+
 
 class TMController extends apiController
 {
@@ -140,7 +144,7 @@ class TMController extends apiController
         if($methodId != 2)
         {
             $userM->TM = $userM->TM +($factor * $amount) ;
-            $userM->all_TM = $userM->all_TM +($factor * $amount) ;
+            $userM->all_TM = $userM->all_TM +($amount) ;
 
             $userM->save() ;
         }
@@ -213,6 +217,78 @@ class TMController extends apiController
 
     }
 
+    public function decreaseTMWAdmin(Request $request)
+    {
+        $validData = $this->validate($request, [
+                'anif_code' => 'required|exists:users,anif_code',
+                'TM' => 'required|alpha_num'
+            ]
+        );
 
+        if(auth()->user()->type < 1)
+        {
+            return $this->respondSuccessMessage('Unauthorized access level.', 'سطح دسترسی غیر مجاز');
+        }
+
+        $userCustomer = User::where('anif_code', $validData['anif_code'])->first();
+        if($userCustomer)
+        {
+
+            if($userCustomer->TM >= $validData['TM'])
+            {
+                $adminID = auth()->user()->id ;
+                $this->insertTMTransaction($userCustomer, $validData['TM'], $userCustomer->TM,2, 4, $adminID);
+                $this->insertTMTransaction(auth()->user(), $validData['TM'], auth()->user()->TM,1, 5, $adminID);
+
+                $adminName = auth()->user()->first_name . " " . auth()->user()->last_name;
+
+                $this->sendSMSTranTM($validData['TM'], $userCustomer->TM, $userCustomer->phone_number, 2, $adminName);
+                $this->sendSMSTranTM($validData['TM'], auth()->user()->TM, auth()->user()->phone_number, 1, 'آنیف');
+                return $this->respondWithMessage('Request Success.',"اعتبار تی ام کسر و در حساب آنیف شما وارد شد.");
+            }
+
+            $message = 'عدم موجودی کافی تی ام برای ثبت این تراکنش';
+            return $this->respondWithMessage('TM is not enough.', $message);
+
+        }
+        $this->respondSuccessMessage('Not founded user', 'کاربری با این مشخصات یافت نشد') ;
+    }
+
+    /**
+     * @param $validData
+     * @param $userCustomer
+     */
+    protected function sendSMSTranTM($tran_TM,$inventory, $receptor, $type = 2, $by)
+    {
+        try {
+            $api = new KavenegarApi("6D4C4566376F6C69644B37355A566849477A702B73513D3D");
+            $sender = "10004346";
+//            $receptor = array(auth()->user()->phone_number);
+            $typeTrn = "برداشت:";
+            if($type == 1)
+                $typeTrn = "واریز:";
+            $jDate = jDatetime::strftime('Y/m/d H:i', strtotime(date('Y-m-d H:i:s')));
+            $message = "‏*آنیف سامانه باشگاه مشتریان *"
+                . " \n $typeTrn " . $tran_TM . " TM" . "\nتوسط: " . $by . "\n مانده: "
+                . $inventory . " TM\n $jDate";
+            $result = $api->Send($sender, $receptor, $message);
+            return  $result[0]->status;
+//            if ($result) {
+//                foreach ($result as $r) {
+//                    echo "messageid = $r->messageid";
+//                    echo "message = $r->message";
+//                    echo "status = $r->status";
+//                    echo "statustext = $r->statustext";
+//                    echo "sender = $r->sender";
+//                    echo "receptor = $r->receptor";
+//                    echo "date = $r->date";
+//                    echo "cost = $r->cost";
+//                }
+//            }
+        } catch (\Kavenegar\Exceptions\ApiException $e) {
+            // در صورتی که خروجی وب سرویس 200 نباشد این خطا رخ می دهد
+            return $e->errorMessage();
+        }
+    }
 
 }

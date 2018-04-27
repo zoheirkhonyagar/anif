@@ -18,8 +18,6 @@ use phpDocumentor\Reflection\Types\Integer;
 
 class UserController extends apiController
 {
-
-
     public function login(ApiLogin $request)
     {
         $validData = $this->validate($request, [
@@ -184,6 +182,67 @@ class UserController extends apiController
 
         $user = new UserResource($userM);
         return $this->respondTrue($user);
+    }
+
+
+    public function loginAdmin(ApiLogin $request)
+    {
+        $validData = $this->validate($request, [
+                'email' => 'exists:users',
+                'phone_number' => 'exists:users',
+                'password' => 'required',
+            ]
+        );
+
+
+        if(! auth()->attempt($validData))
+        {
+            $message = 'رمز عبور یا شماره همراه اشتباه می باشد';
+            return $this->respondValidationError('The server understood the request but refuses to authorize it.', $message);
+        }
+        else if(auth()->user()->type < 1)
+        {
+            return $this->respondSuccessMessage('Unauthorized access level.', 'سطح دسترسی غیر مجاز');
+        }
+
+        auth()->user()->update(
+            [
+                'api_token' => Str::random(100)
+            ]
+        );
+
+        $user = new UserResource(auth()->user());
+        return $this->respondTrue($user);
+    }
+
+    public function getUserWAdmin(Request $request)
+    {
+
+        $validData = $this->validate($request, [
+                'anif_code' => 'exists:users,anif_code',
+                'password' => 'required',
+            ]
+        );
+
+        if(auth()->user()->type < 1)
+        {
+            return $this->respondSuccessMessage('Unauthorized access level.', 'سطح دسترسی غیر مجاز');
+        }
+
+        $userCustomer = User::where('anif_code', $validData['anif_code'])->first();
+        if($userCustomer)
+        {
+            if(Hash::check($validData['password'],$userCustomer->TM_password))
+            {
+                $user = new UserResource($userCustomer);
+                return $this->respondTrue($user);
+            }
+
+            $message = 'رمز تی ام یا آنیف کد مطابقت ندارد از طریق اپلیکیشن از کاربر بخواهید بررسی کند';
+            return $this->respondValidationError('The server understood the request but refuses to authorize it.', $message);
+
+        }
+        $this->respondSuccessMessage('Not founded user', 'کاربری با این مشخصات یافت نشد') ;
     }
 
 
