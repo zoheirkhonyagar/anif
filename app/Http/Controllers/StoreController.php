@@ -205,4 +205,14 @@ class StoreController extends Controller
 
     }
 
+
+    public function search(Request $request)
+    {
+        // dd($request);
+        $regionID = $request['region'];
+        $cityID = $request['city'];
+        $searchInput = $request['search-input'];
+        return $region = Region::find($regionID)->stores()->where('stores.city_id', $cityID)->where('name' , 'like' , '%' . $searchInput . '%')->get();
+    }
+
 }

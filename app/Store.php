@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Cviebrock\EloquentSluggable\Sluggable;
+use App\Region;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Store extends Model
 {
@@ -31,6 +32,11 @@ class Store extends Model
     public function region()
     {
         return $this->hasMany(Region::class);
+    }
+
+    public function regions()
+    {
+        return $this->belongsToMany(Region::class , 'store_regions' , 'store_id' , 'region_id' )->withPivot('city_id');
     }
 
     public function point()

@@ -18,6 +18,7 @@ Route::get('/reg' , function (){
     return view('main.auth.register');
 });
 Route::get('/' , 'StoreController@index');
+Route::get('/search' , 'StoreController@search')->name('search');
 
 Route::get('/admin' , function (){
     return view('admin.dashboard.index');

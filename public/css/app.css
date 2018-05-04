@@ -322,18 +322,25 @@ header .header-bg .header-content .search-box-container{
             justify-content: center;
 }
 
-header .header-bg .header-content .search-box-container .search-box h1{
+header .header-bg .header-content .search-box-container form#main-search{
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+
+header .header-bg .header-content .search-box-container form .search-box h1{
     color: #fff;
     padding:10px;
 
 }
 
-header .header-bg .header-content .search-box-container .search-box .search-form{
+header .header-bg .header-content .search-box-container form .search-box .search-form {
     padding:20px 0;
     width: 100%;
-}
-
-header .header-bg .header-content .search-box-container .search-box .search-form form{
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -345,7 +352,19 @@ header .header-bg .header-content .search-box-container .search-box .search-form
             align-items: center;
 }
 
-header .header-bg .header-content .search-box-container .search-box .search-form form .search-input{
+header .header-bg .header-content .search-box-container form .search-box .search-form form {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+header .header-bg .header-content .search-box-container form .search-box .search-form .search-input {
     padding: 1.55rem 2rem 1.55rem 6rem;
     border-radius: 10rem;
     border: none;
@@ -354,7 +373,7 @@ header .header-bg .header-content .search-box-container .search-box .search-form
         flex-basis: 100%;
 }
 
-header .header-bg .header-content .search-box-container .search-box .search-form form .search-btn{
+header .header-bg .header-content .search-box-container form .search-box .search-form .search-btn {
     padding: 0.9rem 1rem;
     border-radius: 100%;
     border: none;
@@ -363,13 +382,14 @@ header .header-bg .header-content .search-box-container .search-box .search-form
     margin-right: -4.5rem;
     width: 68px;
     height: 68px;
-}
-
-header .header-bg .header-content .search-box-container .search-box .search-form form .search-btn:hover{
     cursor: pointer;
 }
 
-header .header-bg .header-content .search-box-container .search-box .search-form form .search-btn{
+header .header-bg .header-content .search-box-container form .search-box .search-form form .search-btn:hover {
+    cursor: pointer;
+}
+
+header .header-bg .header-content .search-box-container form .search-box .search-form form .search-btn {
     color: #3f3f3f;
 }
 
