@@ -65,7 +65,7 @@ html {
 
 .wrapper {
     min-height: 100%;
-    background: #fff;
+    background: #f5f5f5;
 }
 
 body {
@@ -134,32 +134,32 @@ a:visited:hover {
 
 @media only screen and (min-width:780px) {
     .container {
-        max-width: 740px;
+        max-width: 780px;
     }
 }
 
 @media only screen and (min-width:980px) {
     .container {
-        max-width: 960px;
+        max-width: 980px;
     }
 }
 
 @media only screen and (min-width:1180px) {
     .container {
-        max-width: 1160px;
+        max-width: 1180px;
     }
 }
 
 @media only screen and (min-width:1300px) {
     .container {
-        max-width: 1280px;
+        max-width: 1300px;
     }
 }
 
 /* ------------ header styles ------------ */
 
 header{
-
+    background: #f5f5f5;
 }
 
 header .nav{
@@ -399,7 +399,7 @@ header .header-bg .header-content .search-box .choose-boxes .choose-item i.anif-
 /* ------------ content styles ------------ */
 
 #content{
-    background: #fff;
+    background: #f5f5f5;
 }
 
 #content .row{
@@ -429,6 +429,7 @@ header .header-bg .header-content .search-box .choose-boxes .choose-item i.anif-
     width: calc(33.3333333% - 40px);
     margin:20px;
     border: 1px solid #e5e5e5;
+    background-color: #fff;
 }
 
 #content .row .row-content .items .item .image-box{
@@ -604,180 +605,6 @@ footer .container .copy-right p{
     text-align: center;
 }
 
-
-/* ------------ responsive styles ------------ */
-
-@media (max-width: 980px){
-    #content .row .best-restaurant .offer-items .item , #content .row .row-content .items .item{
-        width: calc(50% - 40px);
-    }
-    #content .row .best-restaurant .items .item .image-box span.offer-percent{
-        top: 0.5rem;
-        left: 0.5rem;
-        padding: 2rem 1rem;
-        font-size: 1.4rem;
-    }
-}
-
-@media (max-width: 780px){
-    #content .row .row-content .items .item .image-box span.offer-percent,#content .row .best-restaurant .items .item .image-box span.offer-percent{
-        padding: 1.5rem 0.8rem;
-        border: 2px solid #4b463d;
-        font-size: 1rem;
-        border-radius: 0.25rem 2rem;
-    }
-    #content .row .row-content .items .item .caption-box .logo{
-        display: none;
-    }
-    footer .container .footer-widget{
-        width: 100%;
-        display: flex;
-        margin-bottom: 1.5rem;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    footer .container .footer-widget .menu{
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    footer .container .footer-widget .menu ul{
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    footer .container .footer-widget .menu ul li{
-        padding:0.5rem 0;
-    }
-
-    footer .container .footer-widget .social{
-        width:100%;
-        margin-top: 1rem;
-    }
-
-    footer .container .footer-widget .social ul{
-        justify-content: space-between;
-    }
-
-    footer .container .footer-widget .social ul li{
-        padding:0.5rem 0;
-    }
-
-    footer .container .copy-right{
-        font-size: 1rem;
-    }
-
-    footer .container .copy-right p {
-        text-align: center;
-        line-height: 1.8rem;
-    }
-
-}
-
-@media (max-width: 580px){
-
-    header .header-bg .header-content .search-box .choose-boxes .choose .choose-item{
-        flex-basis:100%;
-    }
-
-    #content .row .best-restaurant .offer-items .item , #content .row .row-content .items .item{
-        width: calc(100% - 40px);
-    }
-    #content .row .row-content .items .item .caption-box .logo{
-        display: flex;
-    }
-    #content .row .row-content .items .item .image-box span.offer-percent,#content .row .best-restaurant .items .item .image-box span.offer-percent{
-        top: 0.5rem;
-        left: 0.5rem;
-        padding: 2rem 1rem;
-        border-radius: 0.25rem 2rem;;
-        font-size: 1.4rem;
-    }
-
-    header .header-bg .header-content h2.steps {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        color: #fff;
-        margin: 4rem 0;
-    }
-
-    header .header-bg .header-content h2.steps i {
-        color: #fabc05;
-        padding: 3rem 0;
-    }
-
-    header .header-bg .header-content h2.steps i:before{
-        content: "\f13a";
-    }
-
-    header .header-bg .header-content h2.steps span {
-        font-size: 2rem;
-    }
-}
-
-@media (max-width: 480px){
-
-    header .header-bg .header-content .search-box-container{
-        width:100%;
-    }
-
-    header .header-bg .header-content .search-box{
-        padding:1rem;
-        width: 100%;
-    }
-
-    header .header-bg .header-content .search-box .choose-boxes{
-        width: 100%;
-    }
-
-    header .header-bg .header-content .search-box .choose-boxes .choose{
-        align-items:center;
-        justify-content: center;
-    }
-
-    header .header-bg .header-content .search-box .choose-boxes .choose .choose-item{
-        flex-basis:100%;
-    }
-
-    header .header-bg .header-content .search-box-container .search-box .search-form {
-        padding: 20px 0;
-        width: 100%;
-    }
-
-    header .header-bg .header-content .search-box-container .search-box .search-form form {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0;
-        flex-direction: column;
-    }
-
-    header .header-bg .header-content .search-box-container .search-box .search-form form .search-input {
-        padding: 1.55rem 1rem;
-        border-radius: 0.5rem;
-        font-size: 1.2rem;
-    }
-
-    header .header-bg .header-content .search-box-container .search-box .search-form form .search-btn {
-        padding: 0;
-        border-radius: 0.5rem;
-        border: none;
-        background: #fabc05;
-        margin: 1rem auto 0 auto;
-        width: 100%;
-    }
-
-
-    footer .container .footer-widget .social ul li,footer .container .footer-widget .menu ul li{
-        padding:0.5rem 0.8rem !important;
-    }
-}
-
 /*------------ Slider stores ------------*/
 .stores{
     display: flex;
@@ -832,7 +659,7 @@ cursor: pointer;
 
 .information__section{
     padding:20px 25px ;
-    background-color: #f5f5f5;
+    background-color: #fff;
     margin: 10px 0;
     border: 1px solid rgba(0,0,0,0.1);
     display: flex;
@@ -924,7 +751,7 @@ cursor: pointer;
     display: flex;
     justify-content: space-between;
     padding: 15px;
-    background-color: #f5f5f5;
+    background-color: #fff;
     border: 1px solid rgba(0,0,0,0.1);
     flex-basis: 70%;
     font-size: 1.1em;
@@ -945,7 +772,7 @@ cursor: pointer;
 .Points {
     display: flex;
     padding: 15px;
-    background-color: #f5f5f5;
+    background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.1);
     flex-basis: 30%;
     align-items: center;
@@ -967,7 +794,7 @@ cursor: pointer;
     display: flex;
     justify-content: space-between;
     padding: 45px;
-    background-color: #f5f5f5;
+    background-color: #fff;
     border: 1px solid rgba(0,0,0,0.1);
     flex-basis: 70%;
     font-size: 1.1em;
@@ -1070,7 +897,7 @@ cursor: pointer;
     display: flex;
     flex-direction: column;
     padding: 32px;
-    background-color: #f5f5f5;
+    background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.1);
     flex-basis: 30%;
     align-items: center;
@@ -1087,7 +914,7 @@ cursor: pointer;
     -ms-flex-pack: justify;
     justify-content: space-between;
     padding: 45px;
-    background-color: #f5f5f5;
+    background-color: #fff;
     border: 1px solid rgba(0,0,0,0.1);
     -ms-flex-preferred-size: 70%;
     flex-basis: 70%;
@@ -1127,7 +954,7 @@ cursor: pointer;
     display: flex;
     justify-content: space-between;
     padding: 45px;
-    background-color: #f5f5f5;
+    background-color: #fff;
     border: 1px solid rgba(0,0,0,0.1);
     flex-basis: 70%;
     font-size: 1.1em;
@@ -1153,10 +980,11 @@ cursor: pointer;
 
 #show-information-box .info-content .features{
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     flex-wrap: wrap;
     flex-direction: row;
     width: 60%;
+    justify-content: space-between;
 }
 
 #show-information-box .info-content .features .feature-item{
@@ -1169,6 +997,11 @@ cursor: pointer;
 
 #show-information-box .info-content h3{
     text-align: center;
+}
+
+#content .row .row-content .product .items .item .image-box span.offer-percent{
+    padding: 1.4rem 1rem;
+    font-size: 1rem;
 }
 
 .show-products-item .title h3{
@@ -1186,12 +1019,19 @@ cursor: pointer;
 .cart {
     display: flex;
     flex-direction: column;
-    background-color: #f5f5f5;
+    background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.1);
     flex-basis: 30%;
     margin-right: 10px;
     font-size: 1.1em;
     margin-top: 0;
+    width: 30%;
+}
+
+
+
+.cart hr {
+    width: 100%;
 }
 
 .cart .cart-icon{
@@ -1210,10 +1050,6 @@ cursor: pointer;
 .header span{
     color: #fff;
 }
-
-/*.header .cart-icon {*/
-    /*align-items: center;*/
-/*}*/
 
 .header .cart-icon .fa{
     color: #fff;
@@ -1285,6 +1121,10 @@ cursor: pointer;
     margin-right: 20px;
 }
 
+.cart .delivery-type span input{
+    margin-left: 3px;
+}
+
 .cart .btn-order{
     margin-top: 20px;
     padding: 12px 25px;
@@ -1296,3 +1136,252 @@ cursor: pointer;
 .flex-end{
     justify-content: flex-end !important;
 }
+
+/* ------------ responsive styles ------------ */
+@media (max-width: 1200px){
+    /* ------------ single stores styles ------------ */
+    .cart .delivery-type{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cart .delivery-type span {
+        margin: 15px 0;
+    }
+}
+
+
+@media (max-width: 1024px) {
+    /* ------------ single stores styles ------------ */
+    .selected-pro .products , .cart .order-amount , .cart .delivery-type{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .selected-pro .products span,
+    .selected-pro .products .number-of-product,
+    .cart .order-amount span , .cart .delivery-type span{
+        margin: 15px 0;
+    }
+}
+
+
+@media (max-width: 980px) {
+    #content .row .best-restaurant .offer-items .item,
+    #content .row .row-content .items .item {
+        width: calc(50% - 40px);
+    }
+    #content .row .best-restaurant .items .item .image-box span.offer-percent {
+        top: 0.5rem;
+        left: 0.5rem;
+        padding: 2rem 1rem;
+        font-size: 1.4rem;
+    }
+
+    /* ------------ single stores styles ------------ */
+
+    #content .row .row-content.MIC_P{
+        flex-direction: column !important;
+        justify-content: space-between !important;
+    }
+
+    #content .row .row-content.MIC_P .MIN , #content .row .row-content.MIC_P .Points {
+        width: 100%;
+        flex-basis: 100%;
+        margin: 0;
+    }
+
+    #content .row .row-content.MIC_P .MIN{
+        margin: 0 0 10px 0;
+    }
+
+    #content .row .row-content.category-container{
+        flex-direction: column-reverse !important;
+    }
+
+    #content .row .category-container .number-of-member{
+        margin: 0 0 10px 0;
+    }
+
+    #content .row .show-products{
+        flex-direction: column !important;
+    }
+
+    #content .row .show-products .show-products-item , #content .row .cart {
+        flex-basis: 100%;
+        margin: 0;
+        width: 100%;
+    }
+
+    #content .row .cart{
+        margin: 10px 0 0 0;
+    }
+
+    .information__section{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .information__section .online{
+        margin: 30px 0;
+    }
+
+    #show-information-box .info-content .features {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #show-information-box .info-content .features .feature-item{
+        padding: 10px 0;
+        width: calc(103% - 20px);
+    }
+
+}
+
+@media (max-width: 780px) {
+    #content .row .row-content .items .item .image-box span.offer-percent,
+    #content .row .best-restaurant .items .item .image-box span.offer-percent {
+        padding: 1.5rem 0.8rem;
+        border: 2px solid #4b463d;
+        font-size: 1rem;
+        border-radius: 0.25rem 2rem;
+    }
+    #content .row .row-content .items .item .caption-box .logo {
+        display: none;
+    }
+    footer .container .footer-widget {
+        width: 100%;
+        display: flex;
+        margin-bottom: 1.5rem;
+        flex-direction: column;
+        align-items: center;
+    }
+    footer .container .footer-widget .menu {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    footer .container .footer-widget .menu ul {
+        width: 100%;
+        justify-content: space-between;
+    }
+    footer .container .footer-widget .menu ul li {
+        padding: 0.5rem 0;
+    }
+    footer .container .footer-widget .social {
+        width: 100%;
+        margin-top: 1rem;
+    }
+    footer .container .footer-widget .social ul {
+        justify-content: space-between;
+    }
+    footer .container .footer-widget .social ul li {
+        padding: 0.5rem 0;
+    }
+    footer .container .copy-right {
+        font-size: 1rem;
+    }
+    footer .container .copy-right p {
+        text-align: center;
+        line-height: 1.8rem;
+    }
+
+    /* ------------ single stores styles ------------ */
+    
+}
+
+@media (max-width: 580px) {
+    header .header-bg .header-content .search-box .choose-boxes .choose .choose-item {
+        flex-basis: 100%;
+    }
+    #content .row .best-restaurant .offer-items .item,
+    #content .row .row-content .items .item {
+        width: calc(100% - 40px);
+    }
+    #content .row .row-content .items .item .caption-box .logo {
+        display: flex;
+    }
+    #content .row .row-content .items .item .image-box span.offer-percent,
+    #content .row .best-restaurant .items .item .image-box span.offer-percent {
+        top: 0.5rem;
+        left: 0.5rem;
+        padding: 2rem 1rem;
+        border-radius: 0.25rem 2rem;
+        ;
+        font-size: 1.4rem;
+    }
+    header .header-bg .header-content h2.steps {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        margin: 4rem 0;
+    }
+    header .header-bg .header-content h2.steps i {
+        color: #fabc05;
+        padding: 3rem 0;
+    }
+    header .header-bg .header-content h2.steps i:before {
+        content: "\f13a";
+    }
+    header .header-bg .header-content h2.steps span {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header .header-bg .header-content .search-box-container {
+        width: 100%;
+    }
+    header .header-bg .header-content .search-box {
+        padding: 1rem;
+        width: 100%;
+    }
+    header .header-bg .header-content .search-box .choose-boxes {
+        width: 100%;
+    }
+    header .header-bg .header-content .search-box .choose-boxes .choose {
+        align-items: center;
+        justify-content: center;
+    }
+    header .header-bg .header-content .search-box .choose-boxes .choose .choose-item {
+        flex-basis: 100%;
+    }
+    header .header-bg .header-content .search-box-container .search-box .search-form {
+        padding: 20px 0;
+        width: 100%;
+    }
+    header .header-bg .header-content .search-box-container .search-box .search-form form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        flex-direction: column;
+    }
+    header .header-bg .header-content .search-box-container .search-box .search-form form .search-input {
+        padding: 1.55rem 1rem;
+        border-radius: 0.5rem;
+        font-size: 1.2rem;
+    }
+    header .header-bg .header-content .search-box-container .search-box .search-form form .search-btn {
+        padding: 0;
+        border-radius: 0.5rem;
+        border: none;
+        background: #fabc05;
+        margin: 1rem auto 0 auto;
+        width: 100%;
+    }
+    footer .container .footer-widget .social ul li,
+    footer .container .footer-widget .menu ul li {
+        padding: 0.5rem 0.8rem !important;
+    }
+
+    #content .row .row-content.MIC_P .MIN{
+        flex-direction: column;
+    }
+}
+
+/* ------------ temporary styles ------------ */
+

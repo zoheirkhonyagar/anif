@@ -50,8 +50,11 @@ class StoreController extends Controller
     {
         $store = $this->parseStoreImage($store);
         $categories = Store::find($store->id)->productCategory()->with('product')->get();
+        $storeRegions = $store->regions()->get();
+        $storeExplains = explode('-' , $store->explain);
+        // return $storeExplain;
         if($categories)
-        return view('main.single-stores.show', compact('store','categories'));
+        return view('main.single-stores.show', compact('store','categories','storeRegions','storeExplains'));
 //        return $store;
     }
 

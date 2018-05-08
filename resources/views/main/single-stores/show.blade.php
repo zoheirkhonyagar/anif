@@ -3,9 +3,9 @@
 @section('custom-header')
     <header>
         <div id="slider-s" class="stores">
-                <div class="store" style="background: url({{$store->images[1]}}) no-repeat 50% 50%"></div>
-                <div class="store" style="background: url({{$store->images[2]}}) no-repeat 50% 50%"></div>
-                <div class="store" style="background: url({{$store->images[3]}}) no-repeat 50% 50%"></div>
+            <div class="store" style="background: url({{$store->images[1]}}) no-repeat 50% 50%"></div>
+            <div class="store" style="background: url({{$store->images[2]}}) no-repeat 50% 50%"></div>
+            <div class="store" style="background: url({{$store->images[3]}}) no-repeat 50% 50%"></div>
         </div>
         <div class="information__section">
             <div class="information">
@@ -99,7 +99,9 @@
                                 <div class="item offer-item">
                                     <div class="image-box">
                                         <a href="#"><img src="/img/offer-item.jpeg" alt="image-box"></a>
-                                        <span class="offer-percent">تا {{$product->off}}٪</span>
+                                        @if($product->off > 0)
+                                            <span class="offer-percent">تا {{$product->off}}٪</span>
+                                        @endif
                                     </div>
                                     <div class="caption-box">
                                         <div class="logo">
@@ -141,7 +143,11 @@
                         <h2><i class="fa fa-circle-o-notch" aria-hidden="true"></i>مناطق تحت پوشش</h2>
                     </div>
                     <div class="info-content">
-                            
+                        <h3>
+                            @foreach($storeRegions as $region)
+                                {{ $region->name . " , " }}
+                            @endforeach
+                        </h3>
                     </div>
                     <hr>
 
@@ -150,14 +156,12 @@
                     </div>
                     <div class="info-content">
                         <div class="features">
-                            <div class="feature-item">
-                                <i class="fa fa-check" aria-hidden="true"></i>
-                                امکانات
-                            </div>
-                            <div class="feature-item">
-                                <i class="fa fa-check" aria-hidden="true"></i>
-                                امکانات
-                            </div>
+                            @foreach($storeExplains as $explain)
+                                <div class="feature-item">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                    {{ $explain }}
+                                </div>    
+                            @endforeach
                         </div>
                     </div>
                     <hr>
@@ -207,8 +211,14 @@
                 <hr>
                 <div class="delivery-type">
                     <span>تحویل غذا :</span>
-                    <span>در محل رستوران</span>
-                    <span>ارسال به شما</span>
+                    <span>
+                        <input id="in-restaurant" type="radio" name="delivery-type" />                  
+                        <label for="in-restaurant">در محل رستوران</label>
+                    </span>
+                    <span>
+                        <input id="in-home" type="radio" name="delivery-type" />
+                        <label for="in-home">ارسال به شما</label>
+                    </span>
                 </div>
                 <button class="btn-order">
                     <a href="#">ثبت سفارش</a>
