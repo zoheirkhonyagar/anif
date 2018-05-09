@@ -18,7 +18,7 @@ class StoreController extends Controller
 
     public function index()
     {
-		//return auth()->user();
+        //return auth()->user();
         $sortedWithOff = $this->getOfferStores();
         $sortedWithOff = $sortedWithOff['stores'];
 
@@ -46,7 +46,7 @@ class StoreController extends Controller
         $store = $this->parseStoreImage($store);
         $categories = Store::find($store->id)->productCategory()->with('product')->get();
         if($categories)
-        return view('main.single-stores.show', compact('store','categories'));
+            return view('main.single-stores.show', compact('store','categories'));
 //        return $store;
     }
 
@@ -79,6 +79,7 @@ class StoreController extends Controller
         $store['images'] = $tmpSlider;
         return $store;
     }
+
     public function getOfferStores($perPage = 9, $currentPage = 1, $decodeImages = true, $cityId = 1, $region_id = 0, $sortBy = 'sort_weight', $sortType = 'desc', $filterType = 'no' ,$storeCategory = 0)
     {
 
@@ -88,7 +89,7 @@ class StoreController extends Controller
 
         if($region_id == 0)
         {
-            $storesWithPaginate = Store::whereRaw("city_id = $cityId");
+            $storesWithPaginate = Store::whereRaw("city_id = $cityId AND is_active = 1");
             if($storeCategory != 0)
                 $storesWithPaginate = $storesWithPaginate->where("s_category_id" ,'=', $storeCategory);
 
@@ -101,13 +102,15 @@ class StoreController extends Controller
         {
             $storesWithPaginate = Store::join('store_regions', function ($join) use ($region_id) {
                 $join->on('stores.id', '=', 'store_regions.store_id')
-                    ->where('store_regions.region_id', '=', $region_id);
+                    ->where('store_regions.region_id', '=', $region_id)
+                    ->where('stores.is_active', '=', 1);
             });
 
             if($storeCategory != 0)
                 $storesWithPaginate = $storesWithPaginate->where("s_category_id", '=', $storeCategory);
             if($filterType == 'best')
                 $storesWithPaginate = $storesWithPaginate->where("rank", '>=', 4);
+
             $storesWithPaginate = $storesWithPaginate->paginate($perPage);
         }
 
@@ -118,7 +121,7 @@ class StoreController extends Controller
             if($region_id != 0)
                 $store['id'] = $store['store_id'];
             $tmp = DB::table('products')->select(DB::raw('max(off) as maxOff'))->
-                            where('store_id', $store['id'])->first();
+            where('store_id', $store['id'])->first();
 
             $store['max_off'] = $tmp->maxOff;
             if($decodeImages)//برای دیکد نکردن از سمت وب سرویس

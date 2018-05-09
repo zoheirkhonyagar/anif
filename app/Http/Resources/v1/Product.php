@@ -14,7 +14,9 @@ class Product extends Resource
      */
     public function toArray($request)
     {
-        $imgUrl = 'http://anif.ir/images/stores/'.$this['store_id'].'/'.$this['id'].'/main-450.jpg' ;
+        $imgUrl = null ;
+        if($this->images != null)
+            $imgUrl = 'http://anif.ir/images/stores/'.$this['store_id'].'/food-'.$this->id .'-'.$this->images.'.jpg' ;
 
         if($this->details == null)
             $this->details = '';
@@ -31,7 +33,7 @@ class Product extends Resource
           'count' => $this->count ,
           'active' => $this->active ,
           'rank' => $this->rank ,
-          'images' => $this->images ,
+          'images' => $imgUrl ,
           'image' => $imgUrl ,
           'created_at' => $this->created_at ,
         ];

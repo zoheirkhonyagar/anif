@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\DB;
 
 class StorePointController extends apiController
 {
-
-    protected $factor = 2 ;
+    // این فامتئر برای این میباشد که مجموعه هایی که تستر آنیف رای داده امتیازش ضریب بیشتری داشته باشه
+    protected $factor = 1 ;
     //اول از این متود باید استفاده بشه
     //بعد بستگی به نوع ریسپانس داره
     public function getUserPoint(Request $request)
@@ -152,6 +152,8 @@ class StorePointController extends apiController
 
     protected function calcRank($countUserPoint, $rank, $point)
     {
+        if($countUserPoint != 1)
+            $this->factor = 1 ;
         $count = $this->factor * $countUserPoint + 1;
         $sumAvreg = $rank * $this->factor * $countUserPoint;
         return ($sumAvreg + $point) / ($count);

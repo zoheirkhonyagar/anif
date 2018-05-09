@@ -8,12 +8,12 @@ class DB
     {
         $config = [
                 'db' =>[
-//                        'database' => 'cp25654_citydb',
-//                        'username' => 'cp25654_edr9',
-//                        'password' => '9fbmH9$^_Ume'
-                        'database' => 'anif',
-                        'username' => 'root',
-                        'password' => '09399568786'
+                        'database' => 'cp25654_citydb',
+                        'username' => 'cp25654_edr9',
+                        'password' => '9fbmH9$^_Ume'
+//                        'database' => 'anif',
+//                        'username' => 'root',
+//                        'password' => '09399568786'
                 ]
         ];
         try{
