@@ -166,7 +166,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Morilog\Jalali\JalaliServiceProvider::class,
         Kavenegar\Laravel\ServiceProvider::class,
-
+        Zarinpal\ZarinpalServiceProvider::class,
         /*
          * Package Service Providers...
          */

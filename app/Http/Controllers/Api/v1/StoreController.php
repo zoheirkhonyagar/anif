@@ -122,7 +122,7 @@ class StoreController extends apiController
 
 
         if($stores->count() != 0)
-        { 
+        {
             $tmpS = [];
             foreach ($stores as $store)
             {

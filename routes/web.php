@@ -28,6 +28,11 @@ Route::get('/' , function (){
     return view('landing.index');
 });
 
+Route::get('tm-store', 'TMStoreController@showTMPackage');
+
+Route::get('verify', 'TMStoreController@verify')->name('payment-verify');
+
+
 Route::group(['namespace' => 'Auth'],function (){
 
     // Authentication Routes...

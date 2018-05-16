@@ -12,7 +12,8 @@
         "kavenegar/laravel": "^1.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "morilog/jalali": "^2.3"
+        "morilog/jalali": "^2.3",
+        "saeedpooyanfar/zarinpal": "^3.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

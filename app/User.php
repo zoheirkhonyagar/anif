@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Regent::class, 'user_id', 'id');
     }
+
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class, 'user_id', 'id');
+    }
 }

@@ -36,6 +36,9 @@ Route::group(['prefix'=> 'v1', 'namespace'=> 'Api\v1'], function () {
     $this->post('calcPercentagePoints', 'StorePointController@calcPercentagePoints');
     $this->post('getVersion', 'VersionController@get');
     $this->post('loginAdmin', 'UserController@loginAdmin');
+    $this->post('getTMPackage', 'TMStoreController@showTMPackage');
+    $this->get('buyTMPackage', 'TMStoreController@buyPackage');
+    $this->get('verify', 'TMStoreController@verify')->name('payment.verify');
 
 
     Route::middleware('auth:api')->group(function ()

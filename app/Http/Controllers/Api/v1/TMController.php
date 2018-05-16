@@ -144,7 +144,8 @@ class TMController extends apiController
         if($methodId != 2)
         {
             $userM->TM = $userM->TM +($factor * $amount) ;
-            $userM->all_TM = $userM->all_TM +($amount) ;
+            if($type != 1) // عملیات برداشت
+                $userM->all_TM = $userM->all_TM +($amount) ;
 
             $userM->save() ;
         }
@@ -258,7 +259,7 @@ class TMController extends apiController
      * @param $validData
      * @param $userCustomer
      */
-    protected function sendSMSTranTM($tran_TM,$inventory, $receptor, $type = 2, $by)
+    public function sendSMSTranTM($tran_TM,$inventory, $receptor, $type = 2, $by)
     {
         try {
             $api = new KavenegarApi("6D4C4566376F6C69644B37355A566849477A702B73513D3D");
@@ -272,6 +273,7 @@ class TMController extends apiController
                 . " \n $typeTrn " . $tran_TM . " TM" . "\nتوسط: " . $by . "\n مانده: "
                 . $inventory . " TM\n $jDate";
             $result = $api->Send($sender, $receptor, $message);
+
             return  $result[0]->status;
 //            if ($result) {
 //                foreach ($result as $r) {
