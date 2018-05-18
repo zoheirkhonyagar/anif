@@ -953,6 +953,7 @@ cursor: pointer;
     margin-left: 20px;
     line-height: 5px;
 }
+
 .Points {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -973,6 +974,29 @@ cursor: pointer;
     font-size: 1.1em;
 }
 
+.stars-outer {
+    display: inline-block;
+    position: relative;
+    font-family: FontAwesome;
+}
+
+.stars-outer::before {
+    content: "\F006   \F006   \F006   \F006   \F006";
+}
+
+.stars-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+}
+
+.stars-inner::before {
+    content: "\F005   \F005   \F005   \F005   \F005";
+    color: #f8ce0b;
+}
 
 .Points .star{
     color: #fabc05;
@@ -1768,6 +1792,26 @@ cursor: pointer;
         -webkit-box-direction: normal;
             -ms-flex-direction: column;
                 flex-direction: column;
+        height: auto;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+    }
+
+    .MIN span {
+        margin-right: 20px;
+        margin-left: 20px;
+        height: 40px;
+        line-height: 5px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        padding: 15px 0;
+        width: 100%;
+        margin: 10px 0;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
     }
 }
 
