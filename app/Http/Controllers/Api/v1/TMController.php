@@ -110,7 +110,7 @@ class TMController extends apiController
             {
                 $TMPoint = 5000 ;
                 $messageToUser = " حساب شما در آنیف به مقدار $TMPoint TM شارژ شد و بعد از اولین خرید شما امتیاز معرفی برای دوست تون ارسال میشه.";
-                if($regentUserM->count_introduced > 0)
+                if($regentUserM->count_introduced > 0) // شرطی برای کسی که خودش داره از روش معرفی می خواد حسابش رو شارژ کنه
                 {
                     $TMPoint = 1000;
                     $messageToUser = "آنیفی عزیز شما که مشتری خوب ما هستی و نیاز به کد معرف نداری ولی بازم $TMPoint TM حسابت رو شارژ کردیم :)";

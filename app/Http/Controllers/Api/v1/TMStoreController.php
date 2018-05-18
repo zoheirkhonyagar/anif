@@ -40,7 +40,7 @@ class TMStoreController extends apiController
 
         $validData = $this->validate($request, [
                 'user_id' => 'required|exists:users,id',
-                'package_id' => 'required|exists:TM_package,id',
+                'package_id' => 'required|exists:tm_package,id',
                 'price' => 'integer',
             ]
         );

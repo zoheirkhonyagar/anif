@@ -113,11 +113,11 @@ class StoreController extends apiController
 //            $q->where("city_id", '=', $validData['city_id'] )->Where('name', 'like', "%{$text}%")->orWhere('address', 'like', "%{$text}%")->orWhere('explain', 'like', "%{$text}%");
 //        })->paginate(5);
 
-        $stores = Store::where("city_id", '=', $validData['city_id'] )
+        $stores = Store::whereRaw("is_active = 1 AND city_id = ".$validData['city_id'])
             ->where('name', 'like', "%{$text}%")
-            ->where('is_active', '=', 1)
-                ->orWhere('address', 'like', "%{$text}%")
-                    ->orWhere('explain', 'like', "%{$text}%")->get();
+            ->orWhere('address', 'like', "%{$text}%")->whereRaw("is_active = 1 AND city_id = ".$validData['city_id'])
+            ->orWhere('explain', 'like', "%{$text}%")->whereRaw("is_active = 1 AND city_id = ".$validData['city_id'])
+            ->get();
 
 
 

@@ -68,12 +68,13 @@ class TMStoreController extends Controller
                 $TM = $tranO->amount / (100 - $tmPackage->off) * $tmPackage->off + $tranO->amount ;
 
             $tmC->insertTMTransaction($userM, $TM, $userM->TM, 1,$tranO->method_id) ;
-            $tmC->sendSMSTranTM($TM, $userM->TM + $tranO->amount, $userM->phone_number, 1, 'آنیف');
+            $tmC->sendSMSTranTM($TM, $userM->TM , $userM->phone_number, 1, 'آنیف');
             return 'Payment was successful,
         RefID: '.$response['RefID'].',
         Message: '.$response['Message'];
         }
-        $tranO->status = -1 ;
+        if($tranO->status != 100)
+            $tranO->status = -1 ;
         $tranO->save() ;
         return 'Error,
         Status: '.$response['Status'].',
