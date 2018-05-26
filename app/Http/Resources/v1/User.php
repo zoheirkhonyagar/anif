@@ -32,6 +32,7 @@ class User extends Resource
             'birthday' => $birthday ,
             'image' => $this->image ,
             'api_token' => $this->api_token,
+            'address' => $this->address ,
         ];
     }
 }

@@ -30,8 +30,7 @@ class CreateCustomersTable extends Migration
 
 
         Schema::create('user_addresses', function (Blueprint $table) {
-
-            $table->unsignedInteger('id');
+            $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('nick_name',100);

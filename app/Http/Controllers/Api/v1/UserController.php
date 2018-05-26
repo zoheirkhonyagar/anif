@@ -52,6 +52,7 @@ class UserController extends apiController
         $validData = $this->validate($request, [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
+            'address' => 'string|max:120',
 //            'user_name' => 'required|string|max:255',
 //            'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
@@ -71,6 +72,14 @@ class UserController extends apiController
         ]);
 
         $anifCode = $user['id'] +809 ;
+
+        if(isset($request['address']))
+            $user->address()->create(
+                [
+                    'nick_name' => 'خانه',
+                    'address' => $validData['address'] ,
+                ]
+            );
 
         $user['anif_code'] = $anifCode;
         $user->save();

@@ -28,7 +28,7 @@ class User extends Authenticatable
     ];
 
 
-    public function Address()
+    public function address()
     {
         return $this->hasMany(UserAddress::class);
     }
@@ -57,4 +57,5 @@ class User extends Authenticatable
     {
         return $this->hasOne(Transaction::class, 'user_id', 'id');
     }
+    
 }
