@@ -57,5 +57,5 @@ class User extends Authenticatable
     {
         return $this->hasOne(Transaction::class, 'user_id', 'id');
     }
-    
+
 }

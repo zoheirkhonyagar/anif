@@ -56,6 +56,9 @@ Route::group(['prefix'=> 'v1', 'namespace'=> 'Api\v1'], function () {
         Route::post('getRegentInfo', 'TMController@getRegentCode');
         Route::post('decreaseTMWA', 'TMController@decreaseTMWAdmin');
         Route::post('getCustomerA', 'UserController@getUserWAdmin');
+        $this->post('getUserAddress', 'AddressController@getAddress');
+        $this->post('updateUserAddress', 'AddressController@update');
+        $this->post('insertUserAddress', 'AddressController@storeAddress');
 
     });
 
