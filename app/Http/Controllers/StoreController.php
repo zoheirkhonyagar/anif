@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\City;
 use App\Store;
 use App\Region;
 use Illuminate\Http\Request;
@@ -25,6 +26,10 @@ class StoreController extends Controller
         $storesWithRank = $this->getBestStores(3);
         $storesWithRank = $storesWithRank['stores'];
 
+        $cities = City::all();
+        $firstCity = $cities[0];
+        $regions = Region::where('city_id' , $firstCity->id)->get();
+
 //        $tmpRequest = AddWSRequest::create('api/v1/addWSRequest', 'POST', [
 //            'interface_id' => 1,
 //            'position_id' => 1,
@@ -35,8 +40,8 @@ class StoreController extends Controller
 //        ]);
 //        $response = Route::dispatch($tmpRequest);
 //        return $response;die;
-
-        return view('main.main-page.index' , compact( 'sortedWithOff' , 'storesWithRank'));
+        // return $cities;
+        return view('main.main-page.index' , compact( 'sortedWithOff' , 'storesWithRank' , 'cities' , 'regions'));
 
     }
 
@@ -45,9 +50,12 @@ class StoreController extends Controller
     {
         $store = $this->parseStoreImage($store);
         $categories = Store::find($store->id)->productCategory()->with('product')->get();
+        $storeRegions = $store->regions()->get();
+        $storeExplains = explode('-' , $store->explain);
+        // return $storeExplain;
         if($categories)
-            return view('main.single-stores.show', compact('store','categories'));
-//        return $store;
+            return view('main.single-stores.show', compact('store','categories','storeRegions','storeExplains'));
+
     }
 
     /**
@@ -189,6 +197,28 @@ class StoreController extends Controller
             'prev_page_url' => $data->previousPageUrl(),
             'limit' => $data->perPage()
         ];
+    }
+
+    public function getCityRegions(Request $request)
+    {
+        $this->validate($request, [
+            'city_id' => 'required|string',
+        ]);
+        
+        $regions = Region::where('city_id' , $request['city_id'])->get();
+
+        return response()->json($regions);
+
+    }
+
+
+    public function search(Request $request)
+    {
+        // dd($request);
+        $regionID = $request['region'];
+        $cityID = $request['city'];
+        $searchInput = $request['search-input'];
+        return $region = Region::find($regionID)->stores()->where('stores.city_id', $cityID)->where('name' , 'like' , '%' . $searchInput . '%')->get();
     }
 
 }

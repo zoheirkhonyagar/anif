@@ -109,7 +109,7 @@ class CustomerController extends Controller
 
         }else{
 
-            return view('auth.login');
+            return redirect('login');
         
         }
     }
